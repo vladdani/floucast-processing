@@ -1,5 +1,5 @@
 # Multi-stage build for optimized production image
-FROM node:18-alpine AS base
+FROM node:24-alpine AS base
 
 # Install system dependencies for document/image processing
 RUN apk add --no-cache \
@@ -21,7 +21,7 @@ COPY package*.json ./
 RUN npm install --omit=dev --ignore-scripts && npm cache clean --force
 
 # Production stage
-FROM node:18-alpine AS production
+FROM node:24-alpine AS production
 
 # Install runtime dependencies
 RUN apk add --no-cache \
