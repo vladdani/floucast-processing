@@ -16,7 +16,7 @@ env:
   ECR_REPOSITORY: 706184284758.dkr.ecr.ap-southeast-3.amazonaws.com/floucast-processing
   IMAGE_TAG: dev
   CONTAINER_NAME: floucast
-  ECS_SERVICE: floucast-processing
+  ECS_SERVICE: floucast-processing-dev
   ECS_CLUSTER: floucast-dev
   ECS_TASK_DEFINITION: floucast-processing-dev
 
