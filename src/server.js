@@ -25,6 +25,7 @@ const logger = createLogger();
 // Initialize services
 let documentProcessor;
 let queueManager;
+let server;
 
 async function initializeServices() {
   try {
@@ -144,18 +145,25 @@ async function gracefulShutdown(signal) {
   
   try {
     // Stop accepting new requests
-    server.close(() => {
-      logger.info('HTTP server closed');
-    });
+    if (server) {
+      await new Promise((resolve) => {
+        server.close(() => {
+          logger.info('HTTP server closed');
+          resolve();
+        });
+      });
+    }
     
     // Stop queue processing
     if (queueManager) {
       await queueManager.stop();
+      logger.info('Queue processing stopped');
     }
     
     // Close service connections
     if (documentProcessor) {
       await documentProcessor.cleanup();
+      logger.info('Document processor cleaned up');
     }
     
     logger.info('Graceful shutdown completed');
@@ -180,7 +188,7 @@ async function start() {
   try {
     await initializeServices();
     
-    const server = app.listen(port, '0.0.0.0', () => {
+    server = app.listen(port, '0.0.0.0', () => {
       logger.info(`🚀 Document Processor listening on port ${port}`);
     });
     
