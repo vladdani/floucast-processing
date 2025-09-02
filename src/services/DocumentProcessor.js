@@ -1344,7 +1344,7 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       file_size: fileSize,
       document_type: documentType,
       processing_status: 'pending',
-      created_at: new Date().toISOString(),
+      uploaded_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     };
     
@@ -1786,7 +1786,7 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
         document_type: documentType,
         file_path: s3Key,
         file_size: result.ContentLength,
-        created_at: new Date().toISOString(),
+        uploaded_at: new Date().toISOString(),
         s3_etag: result.ETag
       };
       
