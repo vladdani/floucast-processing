@@ -241,7 +241,7 @@ class DocumentProcessor {
       await this.emitProcessingStatus(documentId, 'processing', 90);
 
       // Step 4: Update final document status
-      await this.updateDocumentWithResults(documentId, processingResult, startTime);
+      await this.updateDocumentWithResults(documentId, processingResult, startTime, vertical);
       await this.emitProcessingStatus(documentId, 'complete', 100);
 
       const processingTime = Date.now() - startTime;
@@ -1341,16 +1341,18 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       id: documentId,
       original_filename: originalFilename,
       file_path: s3Key,
-      file_size: fileSize,
       document_type: documentType,
-      processing_status: 'pending',
-      uploaded_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      organization_id: organizationId || 'default-org',
+      uploaded_by: null, // Not available from S3 events, will need to be set by application
+      content_hash: null, // Not available from S3 events, could be calculated
+      file_size: fileSize,
+      processing_status: 'processing', // Start with processing (not pending)
+      uploaded_at: new Date().toISOString()
     };
     
-    // Add organization context if provided
-    if (organizationId && organizationId !== 'default') {
-      documentData.organization_id = organizationId;
+    // Add is_legal field for accounting documents (accountant-app requirement)
+    if (vertical !== 'legal') {
+      documentData.is_legal = false;
     }
     
     const { data: created, error: createError } = await this.supabase
@@ -1429,7 +1431,7 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
   }
 
   // Update document with final processing results
-  async updateDocumentWithResults(documentId, processingResult, startTime) {
+  async updateDocumentWithResults(documentId, processingResult, startTime, vertical = 'accounting') {
     const { extractedData, embeddings } = processingResult;
     
     if (!extractedData) {
@@ -1456,9 +1458,9 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       }
     }
 
-    // Update main document record
+    // Update main document record - use correct table and field names to match accountant-app
     const updateData = {
-      vendor: extractedData.vendor,
+      vendor_name: extractedData.vendor, // accountant-app uses vendor_name, not vendor
       vendor_normalized: vendor_normalized,
       document_date: extractedData.date,
       document_type: extractedData.type,
@@ -1477,11 +1479,15 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       due_date: extractedData.due_date,
       processing_status: 'complete',
       processing_time_ms: Date.now() - startTime,
-      embedding_status: embeddings.length > 0 ? 'completed' : 'no_embeddings'
+      embedding_status: embeddings.length > 0 ? 'completed' : 'no_embeddings',
+      ai_extracted_data: extractedData // Store full AI-extracted data for accountant-app compatibility
     };
 
+    // Determine correct table based on vertical
+    const tableName = vertical === 'legal' ? 'legal_documents' : 'documents';
+
     const { error: updateError } = await this.supabase
-      .from('documents')
+      .from(tableName)
       .update(updateData)
       .eq('id', documentId);
       
@@ -1738,7 +1744,7 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       await this.emitProcessingStatus(documentId, 'processing', 90);
 
       // Update document with results
-      await this.updateDocumentWithResults(documentId, processingResult, startTime);
+      await this.updateDocumentWithResults(documentId, processingResult, startTime, vertical);
       await this.emitProcessingStatus(documentId, 'complete', 100);
 
       const processingTime = Date.now() - startTime;
