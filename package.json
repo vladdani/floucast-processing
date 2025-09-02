@@ -7,6 +7,13 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "jest",
+    "test:enhanced": "node scripts/test-runner.js",
+    "test:quick": "./scripts/quick-test.sh",
+    "test:create-docs": "node scripts/create-test-documents.js",
+    "test:s3-pipeline": "node scripts/test-s3-pipeline.js",
+    "test:create-legal-docs": "node scripts/create-legal-test-documents.js",
+    "test:legal-enhanced": "node scripts/test-legal-runner.js",
+    "test:legal-quick": "./scripts/quick-legal-test.sh",
     "build": "echo 'No build step needed for Node.js'",
     "docker:build": "docker build -t floucast-processor .",
     "docker:run": "docker run -p 8080:8080 --env-file .env floucast-processor"
@@ -29,7 +36,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "axios": "^1.6.0"
   },
   "engines": {
     "node": ">=18.0.0"

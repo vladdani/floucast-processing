@@ -15,15 +15,15 @@ class QueueManager {
     // Initialize SQS if queue URL is provided
     if (this.config.aws.sqsQueueUrl) {
       this.sqs = new AWS.SQS({ region: this.config.aws.region });
-      this.logger.info('✅ SQS client initialized');
+      this.logger.info('SQS client initialized');
     } else {
-      this.logger.warn('⚠️ No SQS queue URL provided, running without queue');
+      this.logger.warn('No SQS queue URL provided, running without queue');
     }
   }
 
   async start() {
     this.isRunning = true;
-    this.logger.info('🚀 Queue manager starting...');
+    this.logger.info('Queue manager starting...');
     
     if (!this.sqs) {
       this.logger.warn('No SQS configuration, queue manager running in standalone mode');
@@ -38,7 +38,7 @@ class QueueManager {
       this.workers.push(worker);
     }
     
-    this.logger.info(`✅ Queue manager started with ${concurrency} workers`);
+    this.logger.info(`Queue manager started with ${concurrency} workers`);
   }
 
   async startWorker(workerId) {
@@ -86,49 +86,103 @@ class QueueManager {
     const startTime = Date.now();
     
     try {
-      const jobData = JSON.parse(message.Body);
+      const messageBody = JSON.parse(message.Body);
       
-      // Handle both direct job data and SQS wrapped messages
-      const actualJobData = jobData.Message ? JSON.parse(jobData.Message) : jobData;
-      const { documentId, vertical, organizationId } = actualJobData;
-      
-      if (!documentId || !vertical) {
-        throw new Error('Invalid job data: missing documentId or vertical');
-      }
-      
-      this.logger.info(`[Worker-${worker.id}] Processing job`, {
-        jobId,
-        documentId,
-        vertical,
-        organizationId
-      });
-
-      // Track active processing
-      this.processingJobs.add(jobId);
-
-      // Set processing timeout
-      const timeoutId = setTimeout(() => {
-        this.logger.error(`[Worker-${worker.id}] Job timeout after ${this.config.processing.maxTimeMs}ms`, {
+      // Handle S3 event notifications
+      if (messageBody.Records && messageBody.Records[0] && messageBody.Records[0].s3) {
+        const s3Record = messageBody.Records[0].s3;
+        const s3Key = decodeURIComponent(s3Record.object.key.replace(/\+/g, ' '));
+        const bucketName = s3Record.bucket.name;
+        
+        // Extract metadata from message attributes
+        const documentId = message.MessageAttributes?.documentId?.StringValue || this.generateDocumentId(s3Key);
+        const vertical = message.MessageAttributes?.vertical?.StringValue || 'accounting';
+        const organizationId = message.MessageAttributes?.organizationId?.StringValue || 'default';
+        
+        // Extract file information from S3 key and metadata
+        const originalFilename = this.extractFilename(s3Key);
+        const documentType = this.detectDocumentType(originalFilename);
+        
+        const jobData = {
+          s3Key,
+          bucketName,
+          documentId,
+          vertical,
+          organizationId,
+          originalFilename,
+          documentType,
+          fileSize: s3Record.object.size,
+          s3EventName: messageBody.Records[0].eventName
+        };
+        
+        this.logger.info(`[Worker-${worker.id}] Processing S3 event`, {
           jobId,
-          documentId
+          s3Key,
+          documentId,
+          vertical,
+          organizationId
         });
-        // Note: The job will still complete but we log the timeout
-      }, this.config.processing.maxTimeMs);
+        
+        // Add to processing set
+        this.processingJobs.add(jobId);
+        
+        // Process the document
+        const result = await this.documentProcessor.processDocument(jobData);
+        
+        // Remove from processing set
+        this.processingJobs.delete(jobId);
+        
+        const processingTime = Date.now() - startTime;
+        this.logger.info(`[Worker-${worker.id}] Job completed successfully`, {
+          jobId,
+          documentId,
+          processingTime,
+          result: result.success
+        });
+        
+      } else {
+        // Handle legacy direct job data format (for backward compatibility)
+        const actualJobData = messageBody.Message ? JSON.parse(messageBody.Message) : messageBody;
+        const { documentId, vertical, organizationId } = actualJobData;
+        
+        if (!documentId || !vertical) {
+          throw new Error('Invalid job data: missing documentId or vertical');
+        }
+        
+        this.logger.info(`[Worker-${worker.id}] Processing legacy job format`, {
+          jobId,
+          documentId,
+          vertical,
+          organizationId
+        });
 
-      // Process the document using the same logic as Vercel
-      const result = await this.documentProcessor.processDocument(actualJobData);
+        // Track active processing
+        this.processingJobs.add(jobId);
 
-      clearTimeout(timeoutId);
+        // Set processing timeout
+        const timeoutId = setTimeout(() => {
+          this.logger.error(`[Worker-${worker.id}] Job timeout after ${this.config.processing.maxTimeMs}ms`, {
+            jobId,
+            documentId
+          });
+        }, this.config.processing.maxTimeMs);
 
-      // Calculate processing time
-      const processingTime = Date.now() - startTime;
-      
-      this.logger.info(`[Worker-${worker.id}] Job completed successfully`, {
-        jobId,
-        documentId,
-        processingTime,
-        status: 'completed'
-      });
+        // Process the document using the same logic as Vercel
+        const result = await this.documentProcessor.processDocument(actualJobData);
+
+        clearTimeout(timeoutId);
+        this.processingJobs.delete(jobId);
+
+        // Calculate processing time
+        const processingTime = Date.now() - startTime;
+        
+        this.logger.info(`[Worker-${worker.id}] Legacy job completed successfully`, {
+          jobId,
+          documentId,
+          processingTime,
+          status: 'completed'
+        });
+      }
 
       // Delete message from queue on success
       await this.sqs.deleteMessage({
@@ -136,7 +190,7 @@ class QueueManager {
         ReceiptHandle: message.ReceiptHandle
       }).promise();
 
-      return result;
+      this.logger.info(`[Worker-${worker.id}] Message deleted from queue`, { jobId });
 
     } catch (error) {
       this.logger.error(`[Worker-${worker.id}] Job processing failed:`, error);
@@ -157,8 +211,52 @@ class QueueManager {
     }
   }
 
+  // Helper methods for S3 event processing
+  generateDocumentId(s3Key) {
+    // Generate document ID from S3 key or use UUID
+    const keyParts = s3Key.split('/');
+    const filename = keyParts[keyParts.length - 1];
+    const nameWithoutExt = filename.split('.')[0];
+    
+    // If the filename looks like it has an ID, use it, otherwise generate UUID
+    if (nameWithoutExt.length > 8 && /^[a-zA-Z0-9\-_]+$/.test(nameWithoutExt)) {
+      return nameWithoutExt;
+    }
+    
+    return `doc-${uuidv4()}`;
+  }
+
+  extractFilename(s3Key) {
+    // Extract original filename from S3 key
+    const keyParts = s3Key.split('/');
+    return keyParts[keyParts.length - 1];
+  }
+
+  detectDocumentType(filename) {
+    // Detect document MIME type from filename extension
+    const ext = filename.toLowerCase().split('.').pop();
+    
+    const mimeTypes = {
+      'pdf': 'application/pdf',
+      'jpg': 'image/jpeg',
+      'jpeg': 'image/jpeg',
+      'png': 'image/png',
+      'gif': 'image/gif',
+      'webp': 'image/webp',
+      'heic': 'image/heic',
+      'heif': 'image/heif',
+      'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'xls': 'application/vnd.ms-excel',
+      'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'doc': 'application/msword',
+      'txt': 'text/plain'
+    };
+
+    return mimeTypes[ext] || 'application/octet-stream';
+  }
+
   async stop() {
-    this.logger.info('🛑 Queue manager stopping...');
+    this.logger.info('Queue manager stopping...');
     this.isRunning = false;
     
     // Stop all workers
@@ -179,7 +277,7 @@ class QueueManager {
       this.logger.warn(`Force stopping with ${this.processingJobs.size} jobs still processing`);
     }
     
-    this.logger.info('✅ Queue manager stopped');
+    this.logger.info('Queue manager stopped');
   }
 
   async getMetrics() {

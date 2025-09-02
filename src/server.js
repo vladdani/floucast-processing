@@ -15,7 +15,7 @@ const port = process.env.PORT || 8080;
 try {
   validateEnvironment();
 } catch (error) {
-  console.error('❌ Environment validation failed:', error.message);
+  console.error('Environment validation failed:', error.message);
   process.exit(1);
 }
 
@@ -29,7 +29,7 @@ let server;
 
 async function initializeServices() {
   try {
-    logger.info('🚀 Initializing Floucast Document Processor');
+    logger.info('Initializing Floucast Document Processor');
     
     documentProcessor = new DocumentProcessor({ logger });
     await documentProcessor.initialize();
@@ -39,9 +39,9 @@ async function initializeServices() {
       logger 
     });
     
-    logger.info('✅ Services initialized successfully');
+    logger.info('Services initialized successfully');
   } catch (error) {
-    logger.error('❌ Service initialization failed:', error);
+    logger.error('Service initialization failed:', error);
     process.exit(1);
   }
 }
@@ -139,6 +139,46 @@ app.post('/process', async (req, res) => {
   }
 });
 
+// Compatible endpoint with accountant-app cloud-run processor
+app.post('/process-document', async (req, res) => {
+  try {
+    const { documentId, vertical = 'accounting', organizationId = 'default' } = req.body;
+    
+    if (!documentId) {
+      return res.status(400).json({
+        error: 'Missing required field: documentId'
+      });
+    }
+    
+    logger.info('Document processing request received (cloud-run compatible)', {
+      documentId,
+      vertical,
+      organizationId
+    });
+    
+    // For direct processing requests, we need to look up the document in the database
+    // to get file information, then process it
+    const result = await documentProcessor.processExistingDocument({
+      documentId,
+      vertical,
+      organizationId
+    });
+    
+    res.json({
+      success: true,
+      documentId,
+      result
+    });
+  } catch (error) {
+    logger.error('Document processing failed:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      documentId: req.body.documentId
+    });
+  }
+});
+
 // Graceful shutdown handling
 async function gracefulShutdown(signal) {
   logger.info(`Received ${signal}. Starting graceful shutdown...`);
@@ -189,7 +229,7 @@ async function start() {
     await initializeServices();
     
     server = app.listen(port, '0.0.0.0', () => {
-      logger.info(`🚀 Document Processor listening on port ${port}`);
+      logger.info(`Document Processor listening on port ${port}`);
     });
     
     // Start queue processing

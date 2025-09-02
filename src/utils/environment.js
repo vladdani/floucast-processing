@@ -4,15 +4,20 @@
 
 const requiredEnvVars = [
   'SUPABASE_URL',
-  'SUPABASE_SERVICE_ROLE_KEY',
+  'SUPABASE_SERVICE_ROLE_KEY', 
   'GEMINI_API_KEY',
-  'AWS_REGION'
+  'AWS_REGION',
+  'S3_BUCKET_NAME',
+  'SQS_QUEUE_URL'
 ];
 
 const optionalEnvVars = {
-  SQS_QUEUE_URL: null,
+  S3_BUCKET_REGION: null, // Uses AWS_REGION if not specified
+  SQS_DEAD_LETTER_QUEUE_URL: null,
   PROCESSING_CONCURRENCY: '3',
   MAX_PROCESSING_TIME_MS: '900000', // 15 minutes
+  SQS_VISIBILITY_TIMEOUT: '900', // 15 minutes
+  SQS_WAIT_TIME_SECONDS: '20', // Long polling
   NODE_ENV: 'production',
   LOG_LEVEL: 'info'
 };
@@ -74,7 +79,12 @@ function getConfig() {
     },
     aws: {
       region: process.env.AWS_REGION,
-      sqsQueueUrl: process.env.SQS_QUEUE_URL
+      s3BucketName: process.env.S3_BUCKET_NAME,
+      s3BucketRegion: process.env.S3_BUCKET_REGION || process.env.AWS_REGION,
+      sqsQueueUrl: process.env.SQS_QUEUE_URL,
+      sqsDeadLetterQueueUrl: process.env.SQS_DEAD_LETTER_QUEUE_URL,
+      sqsVisibilityTimeout: parseInt(process.env.SQS_VISIBILITY_TIMEOUT || '900'),
+      sqsWaitTimeSeconds: parseInt(process.env.SQS_WAIT_TIME_SECONDS || '20')
     },
     processing: {
       concurrency: parseInt(process.env.PROCESSING_CONCURRENCY || '3'),
