@@ -110,26 +110,26 @@ function normalizeDocumentType(type) {
     .trim();
 }
 
-// Text chunking function (simplified version of accountant-app's recursiveCharacterTextSplitter)
-function chunkText(text, options = {}) {
-  const { chunkSize = 700, chunkOverlap = 100 } = options;
-  const chunks = [];
-  
+// Efficient streaming text chunking function with improved memory usage
+function* chunkTextStream(text, chunkSize = 700, overlap = 100) {
   if (!text || text.length <= chunkSize) {
-    return text ? [text] : [];
+    if (text) yield text;
+    return;
   }
   
   let start = 0;
   while (start < text.length) {
     const end = Math.min(start + chunkSize, text.length);
-    const chunk = text.substring(start, end);
-    chunks.push(chunk);
-    
+    yield text.substring(start, end);
     if (end >= text.length) break;
-    start = end - chunkOverlap;
+    start = end - overlap;
   }
-  
-  return chunks;
+}
+
+// Wrapper function to maintain backward compatibility
+function chunkText(text, options = {}) {
+  const { chunkSize = 700, chunkOverlap = 100 } = options;
+  return Array.from(chunkTextStream(text, chunkSize, chunkOverlap));
 }
 
 // Timeout wrapper to prevent operations from hanging indefinitely
@@ -847,7 +847,7 @@ ${xlsxText ? `Additional spreadsheet data: ${xlsxText.substring(0, 1000)}` : ''}
     
     try {
       // Chunk text for embedding
-      const chunks = this.chunkText(text, 700, 100);
+      const chunks = chunkText(text, { chunkSize: 700, chunkOverlap: 100 });
       const embeddings = [];
       
       for (let i = 0; i < chunks.length; i++) {
@@ -893,19 +893,6 @@ ${xlsxText ? `Additional spreadsheet data: ${xlsxText.substring(0, 1000)}` : ''}
     }
   }
 
-  chunkText(text, chunkSize = 700, overlap = 100) {
-    const chunks = [];
-    const words = text.split(/\s+/);
-    
-    for (let i = 0; i < words.length; i += chunkSize - overlap) {
-      const chunk = words.slice(i, i + chunkSize).join(' ');
-      if (chunk.trim()) {
-        chunks.push(chunk);
-      }
-    }
-    
-    return chunks;
-  }
 
   // Status management
   async updateStatus(documentId, vertical, status, progress, error = null) {

@@ -77,18 +77,7 @@ try {
 
 ## 🔐 Security Vulnerabilities
 
-### Issue #4: Hardcoded AWS Account ID Exposure
-- **Severity**: High
-- **Location**: `.github/workflows/deploy-ecs-dev.yml:14`
-- **Description**: AWS Account ID (706184284758) is hardcoded in GitHub Actions workflow
-- **Impact**: Information disclosure, potential account enumeration
-- **Recommendation**: Use GitHub Secrets:
-```yaml
-env:
-  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-```
-
-### Issue #5: Insufficient Input Validation on File Uploads
+### Issue #4: Insufficient Input Validation on File Uploads
 - **Severity**: High
 - **Location**: `src/services/DocumentProcessor.js:374-377`
 - **Description**: File type detection relies only on file extension, not magic bytes or content validation
@@ -100,7 +89,7 @@ const isValidPDF = fileSignature[0] === 0x25 && fileSignature[1] === 0x50; // %P
 // Add validation for each supported type
 ```
 
-### Issue #6: Missing Environment Variable Sanitization
+### Issue #5: Missing Environment Variable Sanitization
 - **Severity**: Medium  
 - **Location**: `src/utils/environment.js:31-37`
 - **Description**: Environment variables are not sanitized for potential code injection
@@ -113,7 +102,7 @@ if (!value || value.trim() === '' || /[<>&;"']/.test(value)) {
 }
 ```
 
-### Issue #7: Sensitive Data in Processing Status
+### Issue #6: Sensitive Data in Processing Status
 - **Severity**: Medium
 - **Location**: `src/services/DocumentProcessor.js:1587-1589`
 - **Description**: Processing status updates include potentially sensitive document data
@@ -131,7 +120,7 @@ preview: {
 
 ## ⚡ Performance Problems
 
-### Issue #8: Synchronous File Processing Blocking Event Loop
+### Issue #7: Synchronous File Processing Blocking Event Loop
 - **Severity**: High
 - **Location**: `src/services/DocumentProcessor.js:796-822`
 - **Description**: ExcelJS operations are synchronous and block the event loop for large files
@@ -144,10 +133,11 @@ const worker = new Worker('./excel-processor-worker.js', {
 });
 ```
 
-### Issue #9: Inefficient Text Chunking Algorithm
+### Issue #8: Inefficient Text Chunking Algorithm ✅ FIXED
+- **Status**: ✅ FIXED
 - **Severity**: Medium
 - **Location**: `src/services/DocumentProcessor.js:114-133`
-- **Description**: Text chunking creates overlapping substrings inefficiently
+- **Description**: Text chunking was creating overlapping substrings inefficiently
 - **Impact**: High memory usage and slow processing for large documents
 - **Recommendation**: Use streaming approach:
 ```javascript
@@ -162,7 +152,7 @@ function* chunkTextStream(text, chunkSize = 700, overlap = 100) {
 }
 ```
 
-### Issue #10: N+1 Database Query Problem
+### Issue #9: N+1 Database Query Problem
 - **Severity**: Medium
 - **Location**: `src/services/DocumentProcessor.js:1621-1630`
 - **Description**: Tax type lookup executes individual queries instead of batch operations
@@ -173,7 +163,7 @@ function* chunkTextStream(text, chunkSize = 700, overlap = 100) {
 
 ## 🏗️ Code Quality Issues
 
-### Issue #11: Massive Function Complexity
+### Issue #10: Massive Function Complexity
 - **Severity**: High
 - **Location**: `src/services/DocumentProcessor.js:358-480`
 - **Description**: `processFileContentEnhanced` function is 122 lines with high cyclomatic complexity
@@ -190,14 +180,14 @@ async processFileContentEnhanced(documentId, fileBuffer, document, startTime, fi
 }
 ```
 
-### Issue #12: Duplicate Code Patterns
+### Issue #11: Duplicate Code Patterns
 - **Severity**: Medium
 - **Location**: Multiple locations in DocumentProcessor.js
 - **Description**: Similar number parsing logic repeated in multiple functions (lines 11-67, 709-737)
 - **Impact**: Code maintenance burden, inconsistency risk
 - **Recommendation**: Create a shared utility module
 
-### Issue #13: Magic Numbers Throughout Codebase
+### Issue #12: Magic Numbers Throughout Codebase
 - **Severity**: Medium  
 - **Location**: Various files
 - **Description**: Hardcoded values like 500KB, 2MB, 700, 100 scattered throughout
@@ -212,7 +202,7 @@ const PROCESSING_THRESHOLDS = {
 };
 ```
 
-### Issue #14: Inconsistent Error Handling Patterns
+### Issue #13: Inconsistent Error Handling Patterns
 - **Severity**: Medium
 - **Location**: Multiple files
 - **Description**: Mix of throw/return null/undefined patterns for error cases
@@ -223,21 +213,21 @@ const PROCESSING_THRESHOLDS = {
 
 ## 🏛️ Architecture Issues
 
-### Issue #15: Tight Coupling Between Services
+### Issue #14: Tight Coupling Between Services
 - **Severity**: Medium
 - **Location**: `src/services/QueueManager.js:6-22`
 - **Description**: QueueManager directly instantiates and couples with DocumentProcessor
 - **Impact**: Difficult testing and service replacement  
 - **Recommendation**: Use dependency injection pattern
 
-### Issue #16: Missing Circuit Breaker Pattern
+### Issue #15: Missing Circuit Breaker Pattern
 - **Severity**: Medium
 - **Location**: AI service calls throughout DocumentProcessor.js
 - **Description**: No protection against cascading failures from AI service timeouts
 - **Impact**: Service instability during AI service outages
 - **Recommendation**: Implement circuit breaker for external service calls
 
-### Issue #17: Lack of Event-Driven Architecture
+### Issue #16: Lack of Event-Driven Architecture
 - **Severity**: Low
 - **Location**: Processing pipeline in DocumentProcessor.js
 - **Description**: Tightly coupled processing steps without event bus
@@ -248,21 +238,21 @@ const PROCESSING_THRESHOLDS = {
 
 ## ⚙️ Configuration Problems
 
-### Issue #18: Missing Docker Compose Redis Dependency
+### Issue #17: Missing Docker Compose Redis Dependency
 - **Severity**: High
 - **Location**: `docker-compose.yml:18`
 - **Description**: Service depends on Redis but Redis service is not defined
 - **Impact**: Docker Compose startup failures
 - **Recommendation**: Either remove Redis dependency or add Redis service definition
 
-### Issue #19: Hardcoded Timeout Values
+### Issue #18: Hardcoded Timeout Values
 - **Severity**: Medium
 - **Location**: `.env.example:29-35`
 - **Description**: AI timeout configurations are hardcoded and may not suit all document types
 - **Impact**: Timeouts may be too aggressive for complex documents
 - **Recommendation**: Make timeouts dynamic based on document size/complexity
 
-### Issue #20: Missing Production Security Headers
+### Issue #19: Missing Production Security Headers
 - **Severity**: Medium
 - **Location**: `src/server.js:50`
 - **Description**: Helmet is used with default settings, missing production-specific security headers
@@ -288,7 +278,7 @@ app.use(helmet({
 
 ## 🧪 Testing & Monitoring Gaps
 
-### Issue #21: No Unit Tests
+### Issue #20: No Unit Tests
 - **Severity**: High
 - **Location**: Project lacks test files
 - **Description**: Zero test coverage for critical document processing logic
@@ -302,21 +292,21 @@ describe('DocumentProcessor', () => {
 });
 ```
 
-### Issue #22: Insufficient Error Logging Context
+### Issue #21: Insufficient Error Logging Context
 - **Severity**: Medium
 - **Location**: Throughout codebase
 - **Description**: Error logs lack correlation IDs and processing context
 - **Impact**: Difficult debugging and monitoring
 - **Recommendation**: Add request correlation IDs and structured logging
 
-### Issue #23: Missing Health Check Dependencies
+### Issue #22: Missing Health Check Dependencies
 - **Severity**: Medium
 - **Location**: `src/server.js:66-93`
 - **Description**: Health check doesn't verify critical dependencies (SQS, S3)
 - **Impact**: Service may report healthy when dependencies are down
 - **Recommendation**: Add comprehensive dependency checks
 
-### Issue #24: No Metrics Collection
+### Issue #23: No Metrics Collection
 - **Severity**: Medium
 - **Location**: Service lacks metrics instrumentation
 - **Description**: No performance metrics, processing times, or business metrics
@@ -327,21 +317,21 @@ describe('DocumentProcessor', () => {
 
 ## 🗑️ Obsolete/Dead Code
 
-### Issue #25: Unused Import in Server.js
+### Issue #24: Unused Import in Server.js
 - **Severity**: Low
 - **Location**: `src/server.js:5`
 - **Description**: Winston imported but not used directly
 - **Impact**: Bundle size and code clarity
 - **Recommendation**: Remove unused import
 
-### Issue #26: Duplicate Number Parsing Functions
+### Issue #25: Duplicate Number Parsing Functions
 - **Severity**: Medium
 - **Location**: `src/services/DocumentProcessor.js:11-67, 709-737`
 - **Description**: Two nearly identical number parsing implementations
 - **Impact**: Code duplication and maintenance burden
 - **Recommendation**: Consolidate into single utility function
 
-### Issue #27: Commented Rollback Code
+### Issue #26: Commented Rollback Code
 - **Severity**: Low
 - **Location**: `.github/workflows/deploy-ecs-dev.yml:154-204`
 - **Description**: Large block of commented rollback implementation
@@ -383,7 +373,6 @@ describe('DocumentProcessor', () => {
 - [ ] Implement proper file validation and size limits  
 - [x] Fix memory leaks in file processing ✅
 - [x] Migrate to AWS SDK v3 async/await ✅
-- [ ] Remove hardcoded AWS secrets
 
 ### Phase 2: Security & Stability (Week 2-3)
 **Priority**: HIGH
