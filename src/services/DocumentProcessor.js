@@ -141,24 +141,35 @@ async function withTimeout(promise, timeoutMs, errorMessage = 'Operation timed o
   return Promise.race([promise, timeoutPromise]);
 }
 
-// Retry wrapper for AI calls
-async function withRetry(fn, retries = 3, delay = 1000) {
+// Enhanced retry wrapper for AI calls with timeout support
+async function withRetry(fn, retries = 3, delay = 1000, logger = console) {
   let lastError;
   for (let i = 0; i < retries; i++) {
     try {
       return await fn();
     } catch (error) {
       lastError = error;
-      // Retry only on 5xx server errors
-      if (error.status && error.status >= 500 && error.status <= 599) {
-        console.warn(`Attempt ${i + 1} failed with status ${error.status}. Retrying in ${delay}ms...`);
-        await new Promise(res => setTimeout(res, delay * (i + 1))); // Exponential backoff
+      const isTimeoutError = error.message?.includes('timed out');
+      const isServerError = error.status && error.status >= 500 && error.status <= 599;
+      const isNetworkError = error.code === 'ECONNRESET' || error.code === 'ENOTFOUND';
+      
+      // Retry on timeouts, server errors, or network errors
+      if (isTimeoutError || isServerError || isNetworkError) {
+        const errorType = isTimeoutError ? 'timeout' : isServerError ? 'server error' : 'network error';
+        logger.warn(`Attempt ${i + 1}/${retries} failed (${errorType}). Retrying in ${delay * (i + 1)}ms...`);
+        
+        if (i < retries - 1) { // Don't wait after the last attempt
+          await new Promise(res => setTimeout(res, delay * (i + 1))); // Exponential backoff
+        }
       } else {
-        // Don't retry on client errors (4xx) or other issues
+        // Don't retry on client errors (4xx) or other non-recoverable issues
+        logger.error(`Non-retryable error encountered: ${error.message}`);
         throw error;
       }
     }
   }
+  
+  logger.error(`All ${retries} retry attempts failed. Last error: ${lastError.message}`);
   throw lastError;
 }
 
@@ -194,9 +205,84 @@ class DocumentProcessor {
     this.embeddingModel = this.genAI.getGenerativeModel({ 
       model: this.config.ai.embeddingModel 
     });
+
+    // Initialize AI timeout configuration
+    this.aiTimeouts = {
+      textExtraction: parseInt(process.env.AI_TEXT_EXTRACTION_TIMEOUT_MS) || 120000,
+      structuredExtraction: parseInt(process.env.AI_STRUCTURED_EXTRACTION_TIMEOUT_MS) || 120000,
+      combinedExtraction: parseInt(process.env.AI_COMBINED_EXTRACTION_TIMEOUT_MS) || 180000,
+      embedding: parseInt(process.env.AI_EMBEDDING_TIMEOUT_MS) || 15000,
+      retryAttempts: parseInt(process.env.AI_RETRY_ATTEMPTS) || 3,
+      retryDelay: parseInt(process.env.AI_RETRY_DELAY_MS) || 2000
+    };
     
+    this.logger.info('AI timeout configuration loaded:', this.aiTimeouts);
     
     this.logger.info('DocumentProcessor initialized successfully');
+  }
+
+  // Calculate dynamic timeout based on file size
+  calculateDynamicTimeout(baseTimeout, fileSize) {
+    const fileSizeMB = fileSize / (1024 * 1024);
+    
+    // Add 30 seconds for every 5MB beyond the first 5MB
+    if (fileSizeMB > 5) {
+      const extraTime = Math.ceil((fileSizeMB - 5) / 5) * 30000;
+      const dynamicTimeout = baseTimeout + extraTime;
+      
+      // Cap maximum timeout at 300 seconds (5 minutes)
+      return Math.min(dynamicTimeout, 300000);
+    }
+    
+    return baseTimeout;
+  }
+
+  // Create fallback structured data when AI extraction fails
+  createFallbackStructuredData(documentId, filename, fileBuffer) {
+    this.logger.warn(`[${documentId}] Creating fallback structured data due to AI extraction failure`);
+    
+    return {
+      vendor: this.extractVendorFromFilename(filename),
+      document_type: this.detectDocumentTypeFromFilename(filename),
+      document_date: null,
+      due_date: null,
+      total_amount: null,
+      tax_amount: null,
+      currency: 'IDR', // Default currency
+      description: `Document processed with fallback extraction: ${filename}`,
+      ap_ar_status: 'N/A',
+      document_number: null,
+      line_items: [{
+        description: `Document: ${filename}`,
+        quantity: 1,
+        unit_price: null,
+        line_total_amount: null
+      }],
+      extraction_method: 'fallback',
+      extraction_confidence: 'low'
+    };
+  }
+
+  // Extract vendor name from filename
+  extractVendorFromFilename(filename) {
+    // Remove common document prefixes and extensions
+    const cleanName = filename
+      .replace(/\.(pdf|jpg|jpeg|png|xlsx|xls|doc|docx)$/i, '')
+      .replace(/^(invoice|receipt|bill|nota|faktur)[\s-_]*/i, '')
+      .replace(/[\d\-_]/g, ' ')
+      .trim();
+    
+    return cleanName.length > 2 ? cleanName : null;
+  }
+
+  // Detect document type from filename
+  detectDocumentTypeFromFilename(filename) {
+    const lower = filename.toLowerCase();
+    if (lower.includes('invoice') || lower.includes('faktur')) return 'Invoice';
+    if (lower.includes('receipt') || lower.includes('nota')) return 'Receipt';
+    if (lower.includes('contract') || lower.includes('agreement')) return 'Contract';
+    if (lower.includes('statement')) return 'Statement';
+    return 'Document';
   }
 
   async processDocument(jobData) {
@@ -311,7 +397,7 @@ class DocumentProcessor {
       this.logger.info(`[${documentId}] Using combined AI extraction for small document`);
       
       try {
-        const combinedResult = await this.performCombinedAIExtraction(fileBuffer, mimeType, documentId);
+        const combinedResult = await this.performCombinedAIExtraction(fileBuffer, mimeType, documentId, fileSize);
         if (combinedResult.fullText) fullDocumentText = combinedResult.fullText;
         if (combinedResult.extractedData) {
           extractedData = combinedResult.extractedData;
@@ -319,16 +405,32 @@ class DocumentProcessor {
         }
       } catch (error) {
         this.logger.warn(`[${documentId}] Combined AI extraction failed, falling back to separate calls:`, error);
+        if (error.message?.includes('timed out')) {
+          this.logger.warn(`[${documentId}] AI extraction timed out, using fallback data`);
+          extractedData = this.createFallbackStructuredData(documentId, filename, fileBuffer);
+          skipStructuredExtraction = true;
+        }
       }
     }
     
     // Full text extraction if not done yet
     if (!fullDocumentText && !isXlsxFile) {
       this.logger.info(`[${documentId}] Starting AI full text extraction`);
-      fullDocumentText = await this.extractFullText(fileBuffer, mimeType);
+      
+      try {
+        fullDocumentText = await this.extractFullText(fileBuffer, mimeType);
+      } catch (error) {
+        this.logger.error(`[${documentId}] Full text extraction failed:`, error);
+        if (error.message?.includes('timed out')) {
+          this.logger.warn(`[${documentId}] Text extraction timed out, proceeding with filename-based extraction`);
+          fullDocumentText = `Document: ${filename}\nExtracted via fallback method due to AI timeout.`;
+        } else {
+          throw error; // Re-throw non-timeout errors
+        }
+      }
     }
     
-    // Critical check: If full text extraction failed, stop processing
+    // Critical check: If full text extraction failed completely, stop processing
     if (!fullDocumentText) {
       throw new Error('Full text extraction failed to produce content. The document might be empty, corrupted, or unsupported.');
     }
@@ -338,13 +440,25 @@ class DocumentProcessor {
       this.logger.info(`[${documentId}] Starting AI structured data extraction`);
       await this.emitProcessingStatus(documentId, 'processing', 50);
       
-      extractedData = await this.extractStructuredData(
-        fileBuffer, 
-        mimeType, 
-        filename, 
-        isXlsxFile ? fullDocumentText : null,
-        isLikelyBankStatement
-      );
+      try {
+        extractedData = await this.extractStructuredData(
+          fileBuffer, 
+          mimeType, 
+          filename, 
+          isXlsxFile ? fullDocumentText : null,
+          isLikelyBankStatement
+        );
+      } catch (error) {
+        this.logger.error(`[${documentId}] Structured data extraction failed:`, error);
+        if (error.message?.includes('timed out')) {
+          this.logger.warn(`[${documentId}] Structured extraction timed out, using fallback data`);
+          extractedData = this.createFallbackStructuredData(documentId, filename, fileBuffer);
+        } else {
+          // For non-timeout errors, still create fallback data but log as warning
+          this.logger.warn(`[${documentId}] Using fallback data due to extraction error`);
+          extractedData = this.createFallbackStructuredData(documentId, filename, fileBuffer);
+        }
+      }
     }
     
     // Process and clean extracted data
@@ -898,11 +1012,19 @@ CRITICAL: Return ALL numbers as clean values without formatting (e.g., 136000 no
     };
 
     this.logger.info(`[${documentId}] Calling combined AI extraction...`);
+    const timeout = this.calculateDynamicTimeout(this.aiTimeouts.combinedExtraction, fileSize || 0);
+    this.logger.info(`[${documentId}] Using dynamic timeout: ${timeout}ms for combined extraction`);
+    
     const result = await withTimeout(
-      this.extractionModel.generateContent({
-        contents: [{ role: "user", parts: [textPart, filePart] }],
-      }),
-      90000, // 90 seconds for combined extraction
+      withRetry(
+        () => this.extractionModel.generateContent({
+          contents: [{ role: "user", parts: [textPart, filePart] }],
+        }),
+        this.aiTimeouts.retryAttempts,
+        this.aiTimeouts.retryDelay,
+        this.logger
+      ),
+      timeout,
       'Combined AI extraction timed out'
     );
 
@@ -964,11 +1086,21 @@ CRITICAL: Return ALL numbers as clean values without formatting (e.g., 136000 no
       },
     };
 
+    // Get file size from method context or estimate from buffer
+    const estimatedFileSize = fileBuffer ? fileBuffer.length : 0;
+    const timeout = this.calculateDynamicTimeout(this.aiTimeouts.textExtraction, estimatedFileSize);
+    this.logger.info(`Using dynamic timeout: ${timeout}ms for text extraction (file size: ${(estimatedFileSize / 1024 / 1024).toFixed(2)}MB)`);
+
     const result = await withTimeout(
-      this.extractionModel.generateContent({
-        contents: [{ role: "user", parts: [textPart, filePart] }],
-      }),
-      45000, // 45 seconds
+      withRetry(
+        () => this.extractionModel.generateContent({
+          contents: [{ role: "user", parts: [textPart, filePart] }],
+        }),
+        this.aiTimeouts.retryAttempts,
+        this.aiTimeouts.retryDelay,
+        this.logger
+      ),
+      timeout,
       'AI full text extraction timed out'
     );
     
@@ -1023,12 +1155,22 @@ Based on this spreadsheet data, extract the following fields:`;
 
     const contentParts = imagePart ? [textPart, imagePart] : [textPart];
 
+    // Estimate file size from buffer if available 
+    const estimatedFileSize = fileBuffer ? fileBuffer.length : 0;
+    const timeout = this.calculateDynamicTimeout(this.aiTimeouts.structuredExtraction, estimatedFileSize);
+    this.logger.info(`Using dynamic timeout: ${timeout}ms for structured extraction`);
+
     const result = await withTimeout(
-      withRetry(() => this.extractionModel.generateContent({
-        contents: [{ role: "user", parts: contentParts }],
-      })),
-      45000, // 45 seconds
-      'AI extraction timed out'
+      withRetry(
+        () => this.extractionModel.generateContent({
+          contents: [{ role: "user", parts: contentParts }],
+        }),
+        this.aiTimeouts.retryAttempts,
+        this.aiTimeouts.retryDelay,
+        this.logger
+      ),
+      timeout,
+      'AI structured extraction timed out'
     );
 
     const response = result.response;
@@ -1115,8 +1257,13 @@ Based on this spreadsheet data, extract the following fields:`;
         this.logger.info(`[${documentId}] Generating single embedding for small document`);
         
         const result = await withTimeout(
-          this.embeddingModel.embedContent(fullDocumentText),
-          10000,
+          withRetry(
+            () => this.embeddingModel.embedContent(fullDocumentText),
+            this.aiTimeouts.retryAttempts,
+            this.aiTimeouts.retryDelay,
+            this.logger
+          ),
+          this.aiTimeouts.embedding,
           'Single embedding generation timed out'
         );
         
@@ -1139,8 +1286,13 @@ Based on this spreadsheet data, extract the following fields:`;
             const globalIndex = i + index;
             try {
               const result = await withTimeout(
-                this.embeddingModel.embedContent(chunk),
-                10000,
+                withRetry(
+                  () => this.embeddingModel.embedContent(chunk),
+                  this.aiTimeouts.retryAttempts,
+                  this.aiTimeouts.retryDelay,
+                  this.logger
+                ),
+                this.aiTimeouts.embedding,
                 `Embedding generation timed out for chunk ${globalIndex + 1}`
               );
               return { text: chunk, embedding: result.embedding.values };

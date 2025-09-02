@@ -100,6 +100,19 @@ class QueueManager {
         const vertical = message.MessageAttributes?.vertical?.StringValue || this.detectVerticalFromS3Key(s3Key);
         const organizationId = message.MessageAttributes?.organizationId?.StringValue || this.extractOrganizationFromS3Key(s3Key);
         
+        // Validate that organization ID exists - skip message if not found
+        if (!organizationId) {
+          this.logger.error(`[Worker-${worker.id}] Skipping message - No organization ID found in S3 key: ${s3Key}`);
+          
+          // Delete message from queue to prevent reprocessing
+          await this.sqs.deleteMessage({
+            QueueUrl: this.queueUrl,
+            ReceiptHandle: message.ReceiptHandle
+          }).promise();
+          
+          return; // Skip processing this message
+        }
+        
         // Extract file information from S3 key and metadata
         const originalFilename = this.extractFilename(s3Key);
         const documentType = this.detectDocumentType(originalFilename);
@@ -148,6 +161,19 @@ class QueueManager {
         
         if (!documentId || !vertical) {
           throw new Error('Invalid job data: missing documentId or vertical');
+        }
+        
+        // Validate organization ID for legacy format too
+        if (!organizationId) {
+          this.logger.error(`[Worker-${worker.id}] Skipping legacy message - No organization ID provided for documentId: ${documentId}`);
+          
+          // Delete message from queue to prevent reprocessing
+          await this.sqs.deleteMessage({
+            QueueUrl: this.queueUrl,
+            ReceiptHandle: message.ReceiptHandle
+          }).promise();
+          
+          return; // Skip processing this message
         }
         
         this.logger.info(`[Worker-${worker.id}] Processing legacy job format`, {
@@ -299,6 +325,7 @@ class QueueManager {
     }
     
     // No valid organization ID found
+    this.logger.warn(`No organization ID found in S3 key: ${s3Key}`);
     return null;
   }
 
