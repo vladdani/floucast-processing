@@ -276,14 +276,15 @@ class QueueManager {
   extractOrganizationFromS3Key(s3Key) {
     // Extract organization ID from S3 path structure
     // Expected format: documents/{organization_id}/filename or legal-docs/{organization_id}/filename
+    // May also have bucket prefix: bucket-name/documents/{organization_id}/filename
     const keyParts = s3Key.split('/');
     
-    if (keyParts.length >= 2) {
-      // Check if first part is a document type directory
-      const firstPart = keyParts[0].toLowerCase();
-      if (firstPart === 'documents' || firstPart === 'legal-docs' || firstPart === 'test-uploads') {
-        // Organization ID should be in the second part
-        const potentialOrgId = keyParts[1];
+    // Look for document type directories and extract org ID from next part
+    for (let i = 0; i < keyParts.length - 1; i++) {
+      const part = keyParts[i].toLowerCase();
+      if (part === 'documents' || part === 'legal-docs' || part === 'test-uploads') {
+        // Organization ID should be in the next part
+        const potentialOrgId = keyParts[i + 1];
         if (this.isValidUUID(potentialOrgId)) {
           return potentialOrgId;
         }

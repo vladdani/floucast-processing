@@ -809,66 +809,6 @@ ${xlsxText ? `Additional spreadsheet data: ${xlsxText.substring(0, 1000)}` : ''}
     }
   }
 
-  async saveProcessingResults(documentId, vertical, result) {
-    const tableName = vertical === 'legal' ? 'legal_documents' : 'documents';
-    
-    try {
-      // Save main document results
-      const updateData = {
-        extracted_data: result.structuredData, // Production table uses extracted_data field
-        processing_strategy: result.processingStrategy,
-        processing_completed_at: new Date().toISOString() // Production table uses processing_completed_at field
-      };
-      
-      if (result.imagePreviewPath) {
-        updateData.preview_path = result.imagePreviewPath;
-        updateData.preview_format = 'webp';
-      }
-      
-      await this.supabase
-        .from(tableName)
-        .update(updateData)
-        .eq('id', documentId);
-      
-      // Save line items if present
-      if (result.structuredData.line_items && result.structuredData.line_items.length > 0) {
-        const lineItems = result.structuredData.line_items.map((item, index) => ({
-          document_id: documentId,
-          description: item.description || '',
-          quantity: item.quantity || 1,
-          unit_price: item.unit_price,
-          line_total_amount: item.line_total_amount,
-          tax_rate: item.tax_rate || 0,
-          line_order: index,
-          category: 'uncategorized' // Default category
-        }));
-        
-        await this.supabase
-          .from('document_line_items')
-          .insert(lineItems);
-      }
-      
-      // Save bank transactions if present
-      if (result.structuredData.bank_transactions && result.structuredData.bank_transactions.length > 0) {
-        const transactions = result.structuredData.bank_transactions.map(transaction => ({
-          document_id: documentId,
-          transaction_date: transaction.date,
-          description: transaction.description,
-          amount: transaction.amount,
-          balance: transaction.balance,
-          transaction_type: transaction.transaction_type
-        }));
-        
-        await this.supabase
-          .from('bank_transactions')
-          .insert(transactions);
-      }
-      
-    } catch (error) {
-      this.logger.error('Failed to save processing results:', error);
-      throw error;
-    }
-  }
 
   // Enhanced XLSX processing using ExcelJS (secure alternative to vulnerable xlsx)
   async xlsxToText(buffer) {
