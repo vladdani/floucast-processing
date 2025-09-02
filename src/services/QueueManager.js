@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk');
+const { SQSClient, ReceiveMessageCommand, DeleteMessageCommand, GetQueueAttributesCommand } = require('@aws-sdk/client-sqs');
 const { v4: uuidv4 } = require('uuid');
 const { getConfig } = require('../utils/environment');
 
@@ -14,7 +14,7 @@ class QueueManager {
     
     // Initialize SQS if queue URL is provided
     if (this.config.aws.sqsQueueUrl) {
-      this.sqs = new AWS.SQS({ region: this.config.aws.region });
+      this.sqs = new SQSClient({ region: this.config.aws.region });
       this.logger.info('SQS client initialized');
     } else {
       this.logger.warn('No SQS queue URL provided, running without queue');
@@ -59,13 +59,14 @@ class QueueManager {
     while (this.isRunning && worker.isRunning) {
       try {
         // Poll SQS for new messages
-        const messages = await this.sqs.receiveMessage({
+        const command = new ReceiveMessageCommand({
           QueueUrl: this.config.aws.sqsQueueUrl,
           MaxNumberOfMessages: 1,           // Process one at a time per worker
           WaitTimeSeconds: 20,              // Long polling
           MessageAttributeNames: ['All'],
           VisibilityTimeout: Math.floor(this.config.processing.maxTimeMs / 1000) // Convert to seconds
-        }).promise();
+        });
+        const messages = await this.sqs.send(command);
 
         if (messages.Messages && messages.Messages.length > 0) {
           const message = messages.Messages[0];
@@ -185,10 +186,11 @@ class QueueManager {
       }
 
       // Delete message from queue on success
-      await this.sqs.deleteMessage({
+      const deleteCommand = new DeleteMessageCommand({
         QueueUrl: this.config.aws.sqsQueueUrl,
         ReceiptHandle: message.ReceiptHandle
-      }).promise();
+      });
+      await this.sqs.send(deleteCommand);
 
       this.logger.info(`[Worker-${worker.id}] Message deleted from queue`, { jobId });
 
@@ -223,7 +225,7 @@ class QueueManager {
       return nameWithoutExt;
     }
     
-    return `doc-${uuidv4()}`;
+    return uuidv4(); // Return proper UUID without prefix for PostgreSQL compatibility
   }
 
   extractFilename(s3Key) {
@@ -329,14 +331,15 @@ class QueueManager {
     // Add SQS metrics if available
     if (this.sqs && this.config.aws.sqsQueueUrl) {
       try {
-        const attributes = await this.sqs.getQueueAttributes({
+        const attributesCommand = new GetQueueAttributesCommand({
           QueueUrl: this.config.aws.sqsQueueUrl,
           AttributeNames: [
             'ApproximateNumberOfMessages',
             'ApproximateNumberOfMessagesNotVisible',
             'ApproximateNumberOfMessagesDelayed'
           ]
-        }).promise();
+        });
+        const attributes = await this.sqs.send(attributesCommand);
         
         metrics.queue = {
           availableMessages: parseInt(attributes.Attributes.ApproximateNumberOfMessages),

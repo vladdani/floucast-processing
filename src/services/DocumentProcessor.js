@@ -1,6 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const AWS = require('aws-sdk');
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 const sharp = require('sharp');
 const heicConvert = require('heic-convert');
 const ExcelJS = require('exceljs');
@@ -183,7 +183,7 @@ class DocumentProcessor {
     );
     
     // Initialize AWS S3
-    this.s3 = new AWS.S3({ region: this.config.aws.s3BucketRegion });
+    this.s3 = new S3Client({ region: this.config.aws.s3BucketRegion });
     this.logger.info('S3 client initialized');
     
     // Initialize Gemini AI
@@ -1379,10 +1379,16 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
         Key: s3Key
       };
       
-      const data = await this.s3.getObject(params).promise();
+      const command = new GetObjectCommand(params);
+      const data = await this.s3.send(command);
       this.logger.info(`Successfully downloaded file: ${data.ContentLength} bytes`);
       
-      return data.Body;
+      // Convert stream to buffer for v3 SDK
+      const chunks = [];
+      for await (const chunk of data.Body) {
+        chunks.push(chunk);
+      }
+      return Buffer.concat(chunks);
     } catch (error) {
       this.logger.error(`Failed to download from S3: ${bucketName}/${s3Key}`, error);
       throw new Error(`S3 download failed: ${error.message}`);
@@ -1782,8 +1788,15 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
         Key: s3Key
       };
       
-      const result = await this.s3.getObject(params).promise();
-      const fileBuffer = result.Body;
+      const command = new GetObjectCommand(params);
+      const result = await this.s3.send(command);
+      
+      // Convert stream to buffer for v3 SDK
+      const chunks = [];
+      for await (const chunk of result.Body) {
+        chunks.push(chunk);
+      }
+      const fileBuffer = Buffer.concat(chunks);
       
       // Create document metadata object (similar to Supabase structure)
       const document = {

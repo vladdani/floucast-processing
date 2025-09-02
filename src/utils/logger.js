@@ -1,47 +1,22 @@
 const winston = require('winston');
-const AWS = require('aws-sdk');
 
 function createLogger() {
-  const transports = [];
-  
-  // Console transport for all environments
-  transports.push(new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.timestamp(),
-      winston.format.printf(({ timestamp, level, message, ...meta }) => {
-        let log = `${timestamp} [${level}] ${message}`;
-        if (Object.keys(meta).length > 0) {
-          log += ` ${JSON.stringify(meta)}`;
-        }
-        return log;
-      })
-    )
-  }));
-  
-  // CloudWatch transport for production
-  if (process.env.NODE_ENV === 'production' && process.env.AWS_REGION) {
-    try {
-      const cloudWatchLogs = new AWS.CloudWatchLogs({
-        region: process.env.AWS_REGION
-      });
-      
-      transports.push(new winston.transports.Stream({
-        stream: {
-          write: (message) => {
-            // Simple CloudWatch logging - in production you'd want proper log groups
-            console.log(message.trim());
+  // Simple console transport - ECS handles CloudWatch integration automatically
+  const transports = [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.timestamp(),
+        winston.format.printf(({ timestamp, level, message, ...meta }) => {
+          let log = `${timestamp} [${level}] ${message}`;
+          if (Object.keys(meta).length > 0) {
+            log += ` ${JSON.stringify(meta)}`;
           }
-        },
-        format: winston.format.combine(
-          winston.format.timestamp(),
-          winston.format.json()
-        )
-      }));
-    } catch (error) {
-      console.warn('Failed to initialize CloudWatch logging:', error.message);
-    }
-  }
+          return log;
+        })
+      )
+    })
+  ];
   
   const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || 'info',
