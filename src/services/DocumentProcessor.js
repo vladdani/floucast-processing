@@ -1097,17 +1097,66 @@ Based on this spreadsheet data, extract the following fields:`;
 
     const extractedJsonString = response.text();
     this.logger.info("AI Extraction Raw Response received");
+    this.logger.debug("Raw AI response:", extractedJsonString);
 
-    // Parse the JSON response safely
-    const match = extractedJsonString.match(/\\{[\\s\\S]*\\}/);
+    // Parse the JSON response safely - try multiple approaches
+    let jsonObjectString = null;
+    
+    // First try: Look for complete JSON object with curly braces
+    const match = extractedJsonString.match(/\{[\s\S]*\}/);
     if (match && match[0]) {
-      const jsonObjectString = match[0];
-      const parsed = JSON.parse(jsonObjectString);
-      if (typeof parsed === 'object' && parsed !== null) {
-        return parsed;
+      jsonObjectString = match[0];
+    } else {
+      // Second try: Look for JSON between triple backticks
+      const codeBlockMatch = extractedJsonString.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/i);
+      if (codeBlockMatch && codeBlockMatch[1]) {
+        jsonObjectString = codeBlockMatch[1];
+      } else {
+        // Third try: Look for the first complete JSON object in the response
+        const lines = extractedJsonString.split('\n');
+        let jsonStartIndex = -1;
+        let braceCount = 0;
+        let jsonEndIndex = -1;
+        
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          for (let j = 0; j < line.length; j++) {
+            const char = line[j];
+            if (char === '{') {
+              if (jsonStartIndex === -1) {
+                jsonStartIndex = i;
+              }
+              braceCount++;
+            } else if (char === '}') {
+              braceCount--;
+              if (braceCount === 0 && jsonStartIndex !== -1) {
+                jsonEndIndex = i;
+                break;
+              }
+            }
+          }
+          if (jsonEndIndex !== -1) break;
+        }
+        
+        if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
+          jsonObjectString = lines.slice(jsonStartIndex, jsonEndIndex + 1).join('\n');
+        }
       }
     }
     
+    if (jsonObjectString) {
+      try {
+        const parsed = JSON.parse(jsonObjectString);
+        if (typeof parsed === 'object' && parsed !== null) {
+          return parsed;
+        }
+      } catch (parseError) {
+        this.logger.error("JSON parse error:", parseError.message);
+        this.logger.debug("Failed to parse JSON string:", jsonObjectString);
+      }
+    }
+    
+    this.logger.error("Could not extract valid JSON from AI response:", extractedJsonString);
     throw new Error('Could not find valid JSON object within AI response');
   }
 
