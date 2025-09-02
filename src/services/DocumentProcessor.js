@@ -743,6 +743,8 @@ ${xlsxText ? `Additional spreadsheet data: ${xlsxText.substring(0, 1000)}` : ''}
       
       if (embeddings.length > 0) {
         // Save embeddings to database
+        // ASSUMPTION: legal_document_chunks table exists with legal_document_id field
+        // TODO: Verify this table exists in production database
         const tableName = vertical === 'legal' ? 'legal_document_chunks' : 'document_chunks';
         const documentIdField = vertical === 'legal' ? 'legal_document_id' : 'document_id';
         
@@ -813,9 +815,9 @@ ${xlsxText ? `Additional spreadsheet data: ${xlsxText.substring(0, 1000)}` : ''}
     try {
       // Save main document results
       const updateData = {
-        ai_extracted_data: result.structuredData,
+        extracted_data: result.structuredData, // Production table uses extracted_data field
         processing_strategy: result.processingStrategy,
-        processed_at: new Date().toISOString()
+        processing_completed_at: new Date().toISOString() // Production table uses processing_completed_at field
       };
       
       if (result.imagePreviewPath) {
@@ -1520,30 +1522,42 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       }
     }
 
-    // Update main document record - use correct table and field names to match accountant-app
-    const updateData = {
-      vendor_name: extractedData.vendor, // accountant-app uses vendor_name, not vendor
-      vendor_normalized: vendor_normalized,
-      document_date: extractedData.date,
-      document_type: extractedData.type,
-      total_amount: extractedData.amount,
-      currency: extractedData.currency,
-      description: extractedData.description,
-      discount: extractedData.discount,
-      deposit_amount: extractedData.deposit_amount,
-      ap_ar_status: extractedData.ap_ar_status,
-      document_number: extractedData.document_number,
-      tax_amount: extractedData.tax_amount,
-      tax_type_id: taxTypeId,
-      tax_type_name: extractedData.tax_type_name,
-      service_charge_amount: extractedData.service_charge_amount,
-      service_charge_type: extractedData.service_charge_type,
-      due_date: extractedData.due_date,
-      processing_status: 'complete',
-      processing_time_ms: Date.now() - startTime,
-      embedding_status: embeddings.length > 0 ? 'completed' : 'no_embeddings',
-      ai_extracted_data: extractedData // Store full AI-extracted data for accountant-app compatibility
-    };
+    // Update main document record - different fields based on vertical
+    let updateData = {};
+    
+    if (vertical === 'legal') {
+      // Legal documents table has different schema - no ai_extracted_data field
+      updateData = {
+        processing_status: 'complete',
+        processing_time_ms: Date.now() - startTime,
+        embedding_status: embeddings.length > 0 ? 'completed' : 'no_embeddings'
+      };
+    } else {
+      // Accounting documents table - full field set like original accountant-app
+      updateData = {
+        vendor: extractedData.vendor, // Production table uses vendor field
+        vendor_normalized: vendor_normalized,
+        document_date: extractedData.date,
+        document_type: extractedData.type,
+        total_amount: extractedData.amount,
+        currency: extractedData.currency,
+        description: extractedData.description,
+        discount: extractedData.discount,
+        deposit_amount: extractedData.deposit_amount,
+        ap_ar_status: extractedData.ap_ar_status,
+        document_number: extractedData.document_number,
+        tax_amount: extractedData.tax_amount,
+        tax_type_id: taxTypeId,
+        tax_type_name: extractedData.tax_type_name,
+        service_charge_amount: extractedData.service_charge_amount,
+        service_charge_type: extractedData.service_charge_type,
+        due_date: extractedData.due_date,
+        processing_status: 'complete',
+        processing_time_ms: Date.now() - startTime,
+        embedding_status: embeddings.length > 0 ? 'completed' : 'no_embeddings',
+        extracted_data: extractedData // Store full AI-extracted data - production table uses extracted_data field
+      };
+    }
 
     // Determine correct table based on vertical
     const tableName = vertical === 'legal' ? 'legal_documents' : 'documents';
@@ -1557,17 +1571,19 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       throw new Error(`Failed to update document: ${updateError.message}`);
     }
 
-    // Save line items if present
-    if (Array.isArray(extractedData.line_items) && extractedData.line_items.length > 0) {
-      await this.saveLineItems(documentId, extractedData.line_items, extractedData.ap_ar_status);
-    } else {
-      // Create default line item (like accountant-app)
-      await this.createDefaultLineItem(documentId, extractedData);
-    }
+    // Save line items only for accounting documents (documents table)
+    if (vertical === 'accounting') {
+      if (Array.isArray(extractedData.line_items) && extractedData.line_items.length > 0) {
+        await this.saveLineItems(documentId, extractedData.line_items, extractedData.ap_ar_status);
+      } else {
+        // Create default line item (like accountant-app)
+        await this.createDefaultLineItem(documentId, extractedData);
+      }
 
-    // Save bank transactions if present
-    if (Array.isArray(extractedData.bank_transactions) && extractedData.bank_transactions.length > 0) {
-      await this.saveBankTransactions(documentId, extractedData.bank_transactions);
+      // Save bank transactions if present (also accounting-specific)
+      if (Array.isArray(extractedData.bank_transactions) && extractedData.bank_transactions.length > 0) {
+        await this.saveBankTransactions(documentId, extractedData.bank_transactions);
+      }
     }
 
     // Save embeddings if present
@@ -1906,7 +1922,7 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
 
   getDefaultStructuredData() {
     return {
-      vendor_name: null,
+      vendor: null,
       document_type: 'other',
       document_date: null,
       due_date: null,
