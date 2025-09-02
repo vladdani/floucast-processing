@@ -180,7 +180,14 @@ app.post('/process-document', async (req, res) => {
 });
 
 // Graceful shutdown handling
+let isShuttingDown = false;
 async function gracefulShutdown(signal) {
+  if (isShuttingDown) {
+    logger.warn(`Shutdown already in progress, ignoring ${signal}`);
+    return;
+  }
+  
+  isShuttingDown = true;
   logger.info(`Received ${signal}. Starting graceful shutdown...`);
   
   try {

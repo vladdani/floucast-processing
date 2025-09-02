@@ -105,10 +105,11 @@ class QueueManager {
           this.logger.error(`[Worker-${worker.id}] Skipping message - No organization ID found in S3 key: ${s3Key}`);
           
           // Delete message from queue to prevent reprocessing
-          await this.sqs.deleteMessage({
+          const deleteCommand = new DeleteMessageCommand({
             QueueUrl: this.queueUrl,
             ReceiptHandle: message.ReceiptHandle
-          }).promise();
+          });
+          await this.sqs.send(deleteCommand);
           
           return; // Skip processing this message
         }
@@ -168,10 +169,11 @@ class QueueManager {
           this.logger.error(`[Worker-${worker.id}] Skipping legacy message - No organization ID provided for documentId: ${documentId}`);
           
           // Delete message from queue to prevent reprocessing
-          await this.sqs.deleteMessage({
+          const deleteCommand = new DeleteMessageCommand({
             QueueUrl: this.queueUrl,
             ReceiptHandle: message.ReceiptHandle
-          }).promise();
+          });
+          await this.sqs.send(deleteCommand);
           
           return; // Skip processing this message
         }

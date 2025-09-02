@@ -299,6 +299,7 @@ class DocumentProcessor {
       fileSize
     });
 
+    let fileBuffer = null;
     try {
       // Step 1: Create/fetch document record from S3 metadata
       const document = await this.createOrFetchDocument({
@@ -314,7 +315,7 @@ class DocumentProcessor {
       await this.emitProcessingStatus(documentId, 'processing', 10);
 
       // Step 2: Download file from S3
-      const fileBuffer = await this.downloadFileFromS3(bucketName, s3Key);
+      fileBuffer = await this.downloadFileFromS3(bucketName, s3Key);
       await this.emitProcessingStatus(documentId, 'processing', 25);
 
       // Step 3: Process file content using accountant-app logic
@@ -326,6 +327,9 @@ class DocumentProcessor {
         fileSize
       );
       await this.emitProcessingStatus(documentId, 'processing', 90);
+
+      // Clear the file buffer after processing to free memory
+      fileBuffer = null;
 
       // Step 4: Update final document status
       await this.updateDocumentWithResults(documentId, processingResult, startTime, vertical);
@@ -348,6 +352,9 @@ class DocumentProcessor {
       };
 
     } catch (error) {
+      // Clear the file buffer on error to free memory
+      fileBuffer = null;
+      
       this.logger.error(`[${documentId}] Enhanced processing failed:`, error);
       await this.handleProcessingError(documentId, error, startTime);
       throw error;
@@ -971,7 +978,7 @@ ${xlsxText ? `Additional spreadsheet data: ${xlsxText.substring(0, 1000)}` : ''}
   }
 
   // Combined AI extraction for small documents (performance optimization from accountant-app)
-  async performCombinedAIExtraction(fileBuffer, mimeType, documentId) {
+  async performCombinedAIExtraction(fileBuffer, mimeType, documentId, fileSize = 0) {
     const combinedPrompt = `You are an expert accountant assistant. Analyze the provided document and extract both the complete text content AND structured information in a single response.
 
 Important: The document may be a handwritten receipt/nota. First perform OCR on the image content. Detect line items even when there are no grid lines or table borders. When quantity is missing, default to quantity=1. Keep one item per visible line. Parse Indonesian number formatting strictly (periods for thousands, comma for decimal) and always return clean numeric values.
@@ -1538,6 +1545,7 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
 
   // Download file from S3
   async downloadFileFromS3(bucketName, s3Key) {
+    let stream = null;
     try {
       this.logger.info(`Downloading from S3: ${bucketName}/${s3Key}`);
       
@@ -1550,13 +1558,31 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       const data = await this.s3.send(command);
       this.logger.info(`Successfully downloaded file: ${data.ContentLength} bytes`);
       
-      // Convert stream to buffer for v3 SDK
+      // Convert stream to buffer for v3 SDK with proper cleanup
+      stream = data.Body;
       const chunks = [];
-      for await (const chunk of data.Body) {
-        chunks.push(chunk);
+      
+      try {
+        for await (const chunk of stream) {
+          chunks.push(chunk);
+        }
+        const buffer = Buffer.concat(chunks);
+        
+        // Clear chunks array to free memory immediately
+        chunks.length = 0;
+        
+        return buffer;
+      } finally {
+        // Ensure stream is properly cleaned up
+        if (stream && typeof stream.destroy === 'function') {
+          stream.destroy();
+        }
       }
-      return Buffer.concat(chunks);
     } catch (error) {
+      // Clean up stream on error
+      if (stream && typeof stream.destroy === 'function') {
+        stream.destroy();
+      }
       this.logger.error(`Failed to download from S3: ${bucketName}/${s3Key}`, error);
       throw new Error(`S3 download failed: ${error.message}`);
     }
