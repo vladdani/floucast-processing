@@ -94,10 +94,10 @@ class QueueManager {
         const s3Key = decodeURIComponent(s3Record.object.key.replace(/\+/g, ' '));
         const bucketName = s3Record.bucket.name;
         
-        // Extract metadata from message attributes
+        // Extract metadata from message attributes or detect from S3 key path
         const documentId = message.MessageAttributes?.documentId?.StringValue || this.generateDocumentId(s3Key);
-        const vertical = message.MessageAttributes?.vertical?.StringValue || 'accounting';
-        const organizationId = message.MessageAttributes?.organizationId?.StringValue || 'default';
+        const vertical = message.MessageAttributes?.vertical?.StringValue || this.detectVerticalFromS3Key(s3Key);
+        const organizationId = message.MessageAttributes?.organizationId?.StringValue || this.extractOrganizationFromS3Key(s3Key);
         
         // Extract file information from S3 key and metadata
         const originalFilename = this.extractFilename(s3Key);
@@ -253,6 +253,42 @@ class QueueManager {
     };
 
     return mimeTypes[ext] || 'application/octet-stream';
+  }
+
+  detectVerticalFromS3Key(s3Key) {
+    // Detect vertical based on S3 key path
+    const keyLower = s3Key.toLowerCase();
+    
+    if (keyLower.startsWith('legal-docs/') || keyLower.includes('/legal/') || keyLower.includes('legal-')) {
+      return 'legal';
+    } else if (keyLower.startsWith('documents/') || keyLower.includes('/accounting/') || keyLower.includes('accounting-')) {
+      return 'accounting';
+    } else if (keyLower.startsWith('test-uploads/') || keyLower.includes('/test/')) {
+      return 'accounting'; // Default test documents to accounting
+    }
+    
+    // Default to accounting if can't determine
+    return 'accounting';
+  }
+
+  extractOrganizationFromS3Key(s3Key) {
+    // Try to extract organization ID from S3 key structure
+    const keyParts = s3Key.split('/');
+    
+    // Look for organization patterns in the key
+    for (const part of keyParts) {
+      if (part.includes('org-') || part.includes('company-') || part.includes('client-')) {
+        return part;
+      }
+    }
+    
+    // If no organization found, use a default based on path structure
+    if (keyParts.length > 2) {
+      // Use second level directory as org if it exists
+      return keyParts[1] || 'default-org';
+    }
+    
+    return 'default-org';
   }
 
   async stop() {

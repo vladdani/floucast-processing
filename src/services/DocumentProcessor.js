@@ -389,63 +389,6 @@ class DocumentProcessor {
     
     return mimeTypes[fileType] || 'application/octet-stream';
   }
-    
-    let xlsxExtractedText = null;
-    let imagePreviewPath = null;
-
-    // Excel Processing - using secure ExcelJS
-    if (isXlsxFile) {
-      this.logger.info(`[${documentId}] Processing Excel file`);
-      xlsxExtractedText = await this.xlsxToText(fileBuffer);
-    }
-
-    // Image Processing - EXACT same as Vercel  
-    const isImageFile = this.isImageFile(document.document_type, document.original_filename);
-    if (isImageFile) {
-      this.logger.info(`[${documentId}] Processing image file`);
-      imagePreviewPath = await this.processImageFile(documentId, fileBuffer, document);
-    }
-
-    // Determine processing strategy based on file size - EXACT same logic
-    const fileSize = fileBuffer.length;
-    const isSmallFile = fileSize <= 500000; // 500KB threshold
-
-    let aiExtractedData, fullTextContent;
-
-    if (isSmallFile) {
-      // Fast processing for small files - EXACT same as Vercel
-      const combinedResult = await this.processCombinedSmallFile(
-        fileBuffer, 
-        document, 
-        xlsxExtractedText
-      );
-      aiExtractedData = combinedResult.structuredData;
-      fullTextContent = combinedResult.fullText;
-    } else {
-      // Standard processing for larger files - EXACT same as Vercel
-      const results = await Promise.all([
-        this.extractFullText(fileBuffer, document, xlsxExtractedText),
-        this.extractStructuredData(fileBuffer, document, xlsxExtractedText)
-      ]);
-      
-      fullTextContent = results[0];
-      aiExtractedData = results[1];
-    }
-
-    // Process extracted data - same line item classification logic
-    const processedData = await this.processExtractedData(
-      aiExtractedData, 
-      vertical, 
-      documentId
-    );
-
-    return {
-      extractedText: fullTextContent,
-      structuredData: processedData,
-      imagePreviewPath,
-      processingStrategy: isSmallFile ? 'fast' : 'standard'
-    };
-  }
 
   async processCombinedSmallFile(fileBuffer, document, xlsxText) {
     const base64Data = fileBuffer.toString('base64');
