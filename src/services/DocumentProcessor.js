@@ -372,6 +372,13 @@ class DocumentProcessor {
            (documentType && documentType.toLowerCase().includes('bank statement'));
   }
   
+  // Helper method to validate UUID format
+  isValidUUID(str) {
+    if (!str || typeof str !== 'string') return false;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return uuidRegex.test(str);
+  }
+
   // Helper method to get MIME type
   getMimeType(fileType) {
     const mimeTypes = {
@@ -1342,7 +1349,7 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
       original_filename: originalFilename,
       file_path: s3Key,
       document_type: documentType,
-      organization_id: organizationId || 'default-org',
+      organization_id: this.isValidUUID(organizationId) ? organizationId : null, // Only set if valid UUID
       uploaded_by: null, // Not available from S3 events, will need to be set by application
       content_hash: null, // Not available from S3 events, could be calculated
       file_size: fileSize,

@@ -274,23 +274,38 @@ class QueueManager {
   }
 
   extractOrganizationFromS3Key(s3Key) {
-    // Try to extract organization ID from S3 key structure
+    // Extract organization ID from S3 path structure
+    // Expected format: documents/{organization_id}/filename or legal-docs/{organization_id}/filename
     const keyParts = s3Key.split('/');
     
-    // Look for organization patterns in the key
+    if (keyParts.length >= 2) {
+      // Check if first part is a document type directory
+      const firstPart = keyParts[0].toLowerCase();
+      if (firstPart === 'documents' || firstPart === 'legal-docs' || firstPart === 'test-uploads') {
+        // Organization ID should be in the second part
+        const potentialOrgId = keyParts[1];
+        if (this.isValidUUID(potentialOrgId)) {
+          return potentialOrgId;
+        }
+      }
+    }
+    
+    // Fallback: look for any UUID in the path
     for (const part of keyParts) {
-      if (part.includes('org-') || part.includes('company-') || part.includes('client-')) {
+      if (this.isValidUUID(part)) {
         return part;
       }
     }
     
-    // If no organization found, use a default based on path structure
-    if (keyParts.length > 2) {
-      // Use second level directory as org if it exists
-      return keyParts[1] || 'default-org';
-    }
-    
-    return 'default-org';
+    // No valid organization ID found
+    return null;
+  }
+
+  // Helper method to validate UUID format
+  isValidUUID(str) {
+    if (!str || typeof str !== 'string') return false;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return uuidRegex.test(str);
   }
 
   async stop() {

@@ -77,9 +77,9 @@ Bank Account: BCA 1234567890
 Thank you for your business!
 EOF
 
-# Upload to S3 - this triggers processing automatically
-aws s3 cp test-invoice.txt s3://floucast-documents/documents/invoice-$(date +%s).txt \
-  --metadata documentId=invoice-test-$(date +%s),vertical=accounting,organizationId=test-company
+# Upload to S3 with organization ID in path - this triggers processing automatically
+ORG_ID="d9457b31-09bd-4ba6-b8d3-105e1d1133b1"  # Replace with your organization UUID
+aws s3 cp test-invoice.txt s3://floucast-documents/documents/$ORG_ID/invoice-$(date +%s).txt
 
 echo "✅ Invoice uploaded! Processing should start automatically."
 ```
@@ -106,8 +106,8 @@ TERIMA KASIH
 EOF
 
 # Upload receipt
-aws s3 cp test-receipt.txt s3://floucast-documents/documents/receipt-$(date +%s).txt \
-  --metadata documentId=receipt-test-$(date +%s),vertical=accounting,organizationId=restaurant-test
+ORG_ID="d9457b31-09bd-4ba6-b8d3-105e1d1133b1"  # Replace with your organization UUID
+aws s3 cp test-receipt.txt s3://floucast-documents/documents/$ORG_ID/receipt-$(date +%s).txt
 
 echo "✅ Receipt uploaded! Check for Indonesian number parsing (25.000 → 25000)."
 ```
@@ -135,9 +135,9 @@ Date       Description                     Debit        Credit       Balance
 SALDO AKHIR: 9.535.000,00
 EOF
 
-# Upload bank statement
-aws s3 cp test-bank-statement.txt s3://floucast-documents/documents/bank-statement-$(date +%s).txt \
-  --metadata documentId=bank-test-$(date +%s),vertical=accounting,organizationId=bank-test
+# Upload bank statement  
+ORG_ID="d9457b31-09bd-4ba6-b8d3-105e1d1133b1"  # Replace with your organization UUID
+aws s3 cp test-bank-statement.txt s3://floucast-documents/documents/$ORG_ID/bank-statement-$(date +%s).txt
 
 echo "✅ Bank statement uploaded! Should extract individual transactions."
 ```
@@ -175,8 +175,8 @@ CONSULTANT: _________________ Date: _________
 EOF
 
 # Upload to legal documents path
-aws s3 cp test-service-agreement.txt s3://floucast-documents/legal-docs/service-agreement-$(date +%s).txt \
-  --metadata documentId=legal-test-$(date +%s),vertical=legal,organizationId=law-firm-test
+ORG_ID="d9457b31-09bd-4ba6-b8d3-105e1d1133b1"  # Replace with your organization UUID  
+aws s3 cp test-service-agreement.txt s3://floucast-documents/legal-docs/$ORG_ID/service-agreement-$(date +%s).txt
 
 echo "✅ Legal contract uploaded! Should extract parties, terms, and governing law."
 ```
@@ -208,8 +208,8 @@ EMPLOYEE: _________________ Date: _________
 EOF
 
 # Upload employment contract
-aws s3 cp test-employment.txt s3://floucast-documents/legal-docs/employment-$(date +%s).txt \
-  --metadata documentId=employment-test-$(date +%s),vertical=legal,organizationId=law-firm-test
+ORG_ID="d9457b31-09bd-4ba6-b8d3-105e1d1133b1"  # Replace with your organization UUID
+aws s3 cp test-employment.txt s3://floucast-documents/legal-docs/$ORG_ID/employment-$(date +%s).txt
 
 echo "✅ Employment contract uploaded! Should extract salary, terms, and Indonesian law references."
 ```
