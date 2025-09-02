@@ -322,7 +322,8 @@ class DocumentProcessor {
         documentId, 
         fileBuffer, 
         document, 
-        startTime
+        startTime,
+        fileSize
       );
       await this.emitProcessingStatus(documentId, 'processing', 90);
 
@@ -354,7 +355,7 @@ class DocumentProcessor {
   }
 
   // Enhanced file content processing using accountant-app logic
-  async processFileContentEnhanced(documentId, fileBuffer, document, startTime) {
+  async processFileContentEnhanced(documentId, fileBuffer, document, startTime, fileSize = 0) {
     const filename = document.original_filename || document.file_path;
     const fileType = filename.split('.').pop()?.toLowerCase();
     const fileSizeKB = Math.round(fileBuffer.byteLength / 1024);
@@ -1252,9 +1253,13 @@ Based on this spreadsheet data, extract the following fields:`;
     }
 
     try {
-      if (isSmallDocument) {
+      // Check text size for Google's 36KB payload limit (with some buffer)
+      const textSizeBytes = new TextEncoder().encode(fullDocumentText).length;
+      const GOOGLE_EMBEDDING_SIZE_LIMIT = 35000; // 35KB to be safe
+      
+      if (isSmallDocument && textSizeBytes < GOOGLE_EMBEDDING_SIZE_LIMIT) {
         // Single embedding for small documents (performance optimization)
-        this.logger.info(`[${documentId}] Generating single embedding for small document`);
+        this.logger.info(`[${documentId}] Generating single embedding for small document (${(textSizeBytes/1024).toFixed(1)}KB)`);
         
         const result = await withTimeout(
           withRetry(
@@ -1272,8 +1277,9 @@ Based on this spreadsheet data, extract the following fields:`;
           embedding: result.embedding.values
         }];
       } else {
-        // Chunked embeddings for larger documents
-        this.logger.info(`[${documentId}] Generating chunked embeddings`);
+        // Chunked embeddings for larger documents or text exceeding API limit
+        const reason = !isSmallDocument ? 'large document' : 'text exceeds API limit';
+        this.logger.info(`[${documentId}] Generating chunked embeddings (${reason}, ${(textSizeBytes/1024).toFixed(1)}KB)`);
         const chunks = chunkText(fullDocumentText, { chunkSize: 700, chunkOverlap: 100 });
         const embeddings = [];
         
@@ -1315,7 +1321,18 @@ Based on this spreadsheet data, extract the following fields:`;
         return embeddings;
       }
     } catch (error) {
-      this.logger.error(`[${documentId}] Embedding generation failed:`, error);
+      const isPayloadSizeError = error.message?.includes('Request payload size exceeds the limit');
+      const isTimeoutError = error.message?.includes('timed out');
+      
+      if (isPayloadSizeError) {
+        this.logger.error(`[${documentId}] Embedding failed due to payload size limit. Text size: ${(textSizeBytes/1024).toFixed(1)}KB`);
+      } else if (isTimeoutError) {
+        this.logger.error(`[${documentId}] Embedding generation timed out`);
+      } else {
+        this.logger.error(`[${documentId}] Embedding generation failed:`, error);
+      }
+      
+      // Return empty array - document processing continues without embeddings
       return [];
     }
   }
@@ -1908,7 +1925,8 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
         documentId, 
         fileBuffer, 
         document, 
-        startTime
+        startTime,
+        fileBuffer.byteLength // Use buffer length as file size for existing documents
       );
       
       await this.emitProcessingStatus(documentId, 'processing', 90);
