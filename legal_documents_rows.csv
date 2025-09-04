@@ -1,0 +1,550 @@
+id,original_filename,document_url,file_path,content_hash,document_type,contract_type,document_title,document_date,effective_date,expiry_date,parties,primary_party,counterparty,governing_law,jurisdiction,language,legal_area,key_terms,obligations,rights,risk_factors,compliance_notes,contract_value,currency,payment_terms,processing_status,embedding_status,extracted_data,confidence_score,organization_id,uploaded_by,uploaded_at,updated_at,processing_time_ms,upload_time_ms,financial_terms,is_template,template_category,template_description,template_version,parent_template_id,processing_chunks,chunking_strategy,section_processing_results,processed_sections_count,file_hash,intelligent_summary,processing_strategy,processing_started_at,processing_completed_at,ai_extraction_status,ai_extraction_error,user_friendly_name,file_size,project_id,is_repository,repository_folder_id
+131551ce-4fc7-4305-9485-3014d44b30ec,Sale and Purchase Agreement Indonesia.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/Sale and Purchase Agreement Indonesia.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 05:07:48.472+00,2025-09-02 05:07:48.504784+00,,,,false,,,1,,0,,[],0,,,,,,,,,126014,,false,
+1e229166-03df-4054-86f9-636a95740db4,Terms and Conditions.pdf,,legal/Terms and Conditions-1752567132918.pdf,,Contract,Services Contract,Contract For Services - Stockport Homes Limited & [the Contractor],,,,"[""STOCKPORT HOMES Limited"",""[THE CONTRACTOR]""]",,,English Law,England,id,,"[""Definitions"",""Initial Contract Period"",""Contract Price"",""Data Protection"",""Confidential Information"",""Intellectual Property Rights"",""Termination"",""Force Majeure"",""Governing Law and Jurisdiction""]","[""Contractor to provide services as per specification"",""Client to pay the Contract Price"",""Contractor to comply with relevant laws and regulations"",""Both parties to protect confidential information"",""Contractor to maintain appropriate insurance""]",,,,,,"The Client shall pay all sums due to the Contractor within 30 days of Receipt of a valid invoice, submitted monthly in arrears.",complete,complete,"{""parties"":[""STOCKPORT HOMES Limited"",""[THE CONTRACTOR]""],""summary"":""This document outlines the standard terms and conditions for a contract for services between STOCKPORT HOMES Limited (the Client) and a Contractor for the supply of services. It covers various aspects including general provisions, supply of services, payment and contract price, statutory obligations and regulations, protection of information, control of the contract, liabilities, default disruption and termination, and disputes and law."",""currency"":null,""key_terms"":[""Definitions"",""Initial Contract Period"",""Contract Price"",""Data Protection"",""Confidential Information"",""Intellectual Property Rights"",""Termination"",""Force Majeure"",""Governing Law and Jurisdiction""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":null,""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":null,""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""Contractor to provide services as per specification"",""Client to pay the Contract Price"",""Contractor to comply with relevant laws and regulations"",""Both parties to protect confidential information"",""Contractor to maintain appropriate insurance""],""jurisdiction"":""England"",""time_periods"":{""notice_period"":""3 Months (for termination by Client)"",""warranty_period"":null,""contract_duration"":""Initial Contract Period specified in the Specification, potentially extendable up to 24 months"",""limitation_period"":""6 years after the end of the Contract Period for maintaining records""},""contract_type"":""Services Contract"",""document_type"":""Contract"",""governing_law"":""English Law"",""payment_terms"":""The Client shall pay all sums due to the Contractor within 30 days of Receipt of a valid invoice, submitted monthly in arrears."",""contract_value"":null,""document_title"":""Contract for Services - STOCKPORT HOMES Limited & [THE CONTRACTOR]"",""effective_date"":null}",,0cf1524b-353c-4843-bafc-09b6f1ba3608,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-07-15 08:12:14.708722+00,2025-09-02 07:04:06.894868+00,50251,,,false,,,1,,0,,[],0,dbc6699f8463774999e757924da1696b6804fddacb55120f839fa4d6cd399aa8,"Here's a Markdown summary and analysis of the provided document:
+
+### Document Type
+Contract for Services
+
+### Analysis Framework
+Legal Contracts (Service Agreements)
+
+### Contract Overview
+*   **Parties:**
+    *   Stockport Homes Limited (the Client)
+    *   [THE CONTRACTOR]
+*   **Purpose:** Agreement relating to the supply of services (details of services are not specified in this extracted text, it is noted to be located elsewhere in the document).
+
+### Financial Terms
+*   **Contract Price:** Payable to the Contractor for the full and proper performance of obligations under the Contract. Exclusive of VAT and as per pricing schedule.  Adjustments may apply (clause C4), to the Contract Price on extension of initial period.
+*   **Payment & VAT:**
+    *   Client shall pay all sums due to the Contractor within 30 days of receipt of a valid invoice (submitted monthly in arrears).
+    *   VAT is added to the Contract Price at the prevailing rate.
+*   **Euro:** If the Contractor needs to account for the services in Euro, it is to be implemented free of charge to the Client.
+*   **Recovery of Sums Due:** The client can deduct money that the contractor owes them from payments. Overpayments by either party are recoverable.
+
+### Key Obligations - Contractor
+*   **Supply of Services:**  The Contractor is obligated to supply services in accordance with Client's requirements (as in the specification) during the contract period (Clause B1)
+*   **Equipment:** The contractor is responsible for providing equipment necessary to supply services and is responsible for the loss or damages of equipment. (Clause B2)
+*   **Staff:**  The contractor's staff shall comply with rules and regulations of the premises including security arrangements (Clause B5).
+*   **Data Protection:** Compliance with DPA.
+*   **Confidentiality:** Maintain confidentiality of information.
+*   **Insurance:** Maintain appropriate insurance policies, including professional indemnity insurance of at least £10,000,000.
+*   **Warranties and Representations:** Several warranties, including full capacity, compliance with laws, and no fraud.
+*   **Prevention of Corruption:** No bribery or inducement is allowed.
+*   **Prevention of Fraud:** All steps taken to prevent fraud.
+
+### Key Obligations - Client
+*   **Payment:** Timely payment of undisputed sums.
+*   **Access:** Provide access to premises for the Contractor and their staff.
+*   **Information:** Provide necessary information for the performance of the contract.
+*   **Compliance:** Comply with data protection regulations.
+
+### Important Dates
+*   **Commencement Date:** Not specified but to be included in the contract
+*   **Initial Contract Period:** Begins on the Commencement Date; expiration is specified in the Specification. Can be extended for up to 24 months (Clause F8)
+*   **Notice Period for Extension:** Client must provide written notice at least 3 months prior to the end of the initial contract period to extend (Clause F8).
+
+### Termination
+*   **Client Termination:**  The Client can terminate the contract:
+    *   Immediately for insolvency or change of control (Clause H1)
+    *   Immediately for default (failure to remedy a breach), H2
+    *   By giving 3 months' written notice (break clause, H3)
+
+### Other Key Provisions:
+*   **Independent Contractor Status:** The contractor is an independent contractor and not an employee (Clause A3).
+*   **Conflicts of Interest:** The contractor must ensure that there are no conflicts of interest. Client reserves the right to terminate due to conflicts.
+*   **Intellectual Property:**  IP rights generally belong to the Client; Contractor grants a license to use any pre-existing IP (Clause E6).
+*   **Force Majeure:** Neither party is liable for delays or failures due to force majeure events.
+
+### Key Insights
+*   **Risk Allocation:** The contract places a significant responsibility on the Contractor to manage various risks, including those related to data protection, insurance, and conflicts of interest.
+*   **Client Termination Rights:** The Client has broad termination rights, particularly for default or change of control, which the Contractor needs to carefully consider.
+*   **Confidentiality & Data Protection:** Stringent confidentiality and data protection clauses highlight the importance of information security.  Contractor must indemnify the Client for breaches.
+*   **IP Ownership:** The IP rights primarily belong to the Client, ensuring the Client's long-term control over the deliverables.
+*   **Dispute Resolution:** Attempts at good faith negotiation, then potential mediation, with arbitration specified at the end if the Client so requires.
+
+This summary provides a structured overview of the document's key terms and conditions, highlighting crucial obligations, financial aspects, and potential risks for both parties.",standard,2025-07-15 08:12:14.831+00,,,,Agreement - Terms and CO.pdf,,,false,
+22e010dc-7e4f-4cc7-b4a8-4f9c0409bd5b,Sale and Purchase Agreement Indonesia.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/Sale and Purchase Agreement Indonesia.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 05:37:48.468+00,2025-09-02 05:37:48.528197+00,,,,false,,,1,,0,,[],0,,,,,,,,,126014,,false,
+33eb2bf5-7759-4935-828a-7192ad27dd08,Indonesian Civil Code Translation.pdf,404265fc-27f0-41a9-842e-dde3f76b540c/2025-07-02T02-36-54-Indonesian Civil Code Translation.pdf,404265fc-27f0-41a9-842e-dde3f76b540c/2025-07-02T02-36-54-Indonesian Civil Code Translation.pdf,dd00646cb9b57ff47c5fa4f0269631d1b532783c9ae7477d7fbdba410b9c1695,Legal Document,Civil Code,Indonesian Civil Code Translation.pdf,,1847-04-30,,[],,,Indonesian Law,Indonesia,id,,"[""civil rights"",""assets"",""matrimony"",""prenuptial agreements"",""parental authority"",""civil registry"",""residence"",""domicile"",""marriage"",""divorce"",""obligations"",""ownership"",""prescription"",""last will"",""testamentary"",""contracts"",""legacies"",""inheritance"",""guarantees"",""annuities"",""mortgages"",""leases"",""servitude"",""loan""]",[],,,,,,,complete,complete,"{""parties"":[],""summary"":""The document is the Indonesian Civil Code, containing legal regulations regarding individual rights, assets, contracts, matrimony, and related legal matters."",""currency"":null,""key_terms"":[""civil rights"",""assets"",""matrimony"",""prenuptial agreements"",""parental authority"",""civil registry"",""residence"",""domicile"",""marriage"",""divorce"",""obligations"",""ownership"",""prescription"",""last will"",""testamentary"",""contracts"",""legacies"",""inheritance"",""guarantees"",""annuities"",""mortgages"",""leases"",""servitude"",""loan""],""expiry_date"":null,""obligations"":[],""jurisdiction"":""Indonesia"",""contract_type"":""Civil Code"",""document_type"":""Law"",""governing_law"":""Indonesian Law"",""payment_terms"":null,""contract_value"":null,""document_title"":""Indonesian Civil Code"",""effective_date"":""1847-04-30""}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-07-02 02:36:54.562+00,2025-07-17 03:26:54.376556+00,,,,false,,,1,,0,,[],0,,"### Document Type
+Indonesian Civil Code
+
+### Key Categories
+*   **General Overview**
+*   **Persons**
+*   **Marriage**
+*   **Property**
+*   **Contracts**
+*   **Evidence & Prescription**
+
+### General Overview
+*   **Promulgated**: April 30, 1847 (S.NO.23)
+
+### Persons
+*   **Civil Rights**: Outlines the enjoyment and loss of civil rights.
+*   **Residence/Domicile**:  Addresses rules for establishing residence or domicile (Articles 17-25).
+*   **Civil Registry**: Details procedures for recording births, marriages, divorces, and deaths (Articles 4-16).
+*   **Names**: Defines regulations concerning the changing or adding of first and last names (Articles 5a-12).
+
+### Marriage
+*   **Matrimony**: Defines general provisions and regulations surrounding marriage (Articles 26-49).
+*   **Prohibited Marriages**: Lists specific prohibitions on marriage (Articles 30-34).
+*   **Qualifications & Conditions**: Details qualifications, conditions, and required approvals for entering marriage, particularly concerning minors (Articles 35-41).
+*   **Formality Preceding Marriage**: Includes announcements, etc. (Articles 50-58).
+*   **Obstruction of Marriage**: Defines the right to obstruct a marriage and the process for doing so (Articles 59-70).
+*   **Execution of Marriage**: Specifies documents required and the process of the marriage ceremony (Articles 71-82).
+*   **Marriages Executed Abroad**: Addresses validity and registration of marriages abroad (Articles 83-84).
+*   **Annulment**: Provides grounds and procedures for annulment of marriage (Articles 85-102).
+
+### Property
+*   **Community Property**: Covers legal community property and management (Articles 119-126).
+*   **Management of Community Property**: Outlines rights of the husband in management (Articles 124-125)
+*   **Dissolution of Community Property**: Regulations upon death, dissolution, divorce, etc. (Articles 126-128).
+*   **Claims on Community Property**: Individual and spousal claims on property (Articles 129-138).
+*   **Prenuptial Agreements**: Regulations for prenuptial agreements and deviations from community property (Articles 139-154)
+*   **Concerning Property in Respect to Profit/Loss and Gains/Income**: Covers profit/loss, gains/income (Articles 155-167)
+*   **Gifts Between Spouses**: Regulations related to specific stipulations about gifts (Articles 168-179)
+*   **Community Property and Prenuptial Agreements Upon Second/Further Marriages**: Covers community property for 2nd marriages (Articles 180-185)
+*   **Division of Assets**: Conditions under which a wife may request a division, and stipulations regarding how such division should occur (Articles 186-198).
+
+### Contracts
+*   **General Provisions**: Basic principles of contracts (Articles 1233-1234).
+*   **Conditional Obligations**: Rules about obligations based on certain conditions (Articles 1253-1267).
+*   **Divisible and Indivisible Contracts**: Explains how contracts can be divisible/indivisible (Articles 1269-1303).
+*   **Contracts Subject to Punishment**: Explains stipulations for agreements with related punishment for violations (Articles 1304-1312).
+*   **Commitments Arising from Contracts/Agreements**:  Explores requirements of contract fulfillment (Articles 1313-1314).
+
+### Evidence & Prescription
+*   **General Provisions**: Defines what constitutes evidence (Articles 1865-1866).
+*   **Written Evidence**: Discusses authentic and private documents as evidence (Articles 1867-1894).
+*   **Evidence by Witnesses**: Discusses admissibility and evaluation of witness testimonies (Articles 1895-1922).
+*   **Inferences**:  Defines legal and non-legal inferences (Articles 1915-1922).
+*   **Confessions**: Regulations concerning confessions made within and outside the court of law (Articles 1923-1928).
+*   **The Legal Oath**: Discusses requirements and effects of oath sworn in court (Articles 1929-1937).
+*   **Concerning Prescription**: covers the acquisition or loss of rights due to passage of time (Articles 1946-1962).",,,,,,1847-04-30 - Civil Code,,,false,
+4b210d50-5f45-40a5-95fe-f4382d3d5100,GIZ 2018 General Terms and Conditions.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/GIZ 2018 General Terms and Conditions.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 05:52:37.28+00,2025-09-02 05:52:37.298174+00,,,,false,,,1,,0,,[],0,,,,,,,,,278319,,false,
+4fc23662-7866-4ae9-921a-610ae3d5e7e2,Indonesia Law No 40 of 2007.pdf,,legal/0d4f5e60-258a-46ea-92ce-c0ffc9263e1b/2025/08/4fc23662-7866-4ae9-921a-610ae3d5e7e2.pdf,c5caa36cdc40ae84476fb054209875740015a36f25f45aca033522001d8891da,Law,Corporate Law,Law Of The Republic Of Indonesia Number 40 Of 2007 Concerning Limited Liability Company,,,,"[""The Republic of Indonesia""]",,,The Law of the Republic of Indonesia,Indonesia,id,,"[""Limited Liability Company"",""Authorized Capital"",""Articles of Association"",""Board of Directors"",""Board of Commissioners"",""General Meeting of Shareholders (GMS)"",""Merger"",""Consolidation"",""Acquisition"",""Liquidation"",""Social and Environmental Responsibility""]","[""Companies must adhere to the provisions outlined in their Articles of Association and Indonesian law."",""Companies must maintain a register of shareholders, financial records, and minutes of meetings."",""The Board of Directors must manage the company in the best interests of the company and its stakeholders."",""Companies engaging in certain business activities must perform their Social and Environmental Responsibility."",""Companies must comply with regulations concerning mergers, acquisitions, dissolutions, and liquidations.""]",,,,,,,complete,complete,"{""parties"":[""The Republic of Indonesia""],""summary"":""This Law concerns the establishment, regulation, and operation of Limited Liability Companies in the Republic of Indonesia. It details the requirements for formation, governance, capital, shares, management, mergers, acquisitions, dissolution, and liquidation of such companies, providing a legal framework for business operations within the Indonesian legal system."",""currency"":null,""key_terms"":[""Limited Liability Company"",""Authorized Capital"",""Articles of Association"",""Board of Directors"",""Board of Commissioners"",""General Meeting of Shareholders (GMS)"",""Merger"",""Consolidation"",""Acquisition"",""Liquidation"",""Social and Environmental Responsibility""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":null,""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":""2007-08-16"",""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""Companies must adhere to the provisions outlined in their Articles of Association and Indonesian law."",""Companies must maintain a register of shareholders, financial records, and minutes of meetings."",""The Board of Directors must manage the company in the best interests of the company and its stakeholders."",""Companies engaging in certain business activities must perform their Social and Environmental Responsibility."",""Companies must comply with regulations concerning mergers, acquisitions, dissolutions, and liquidations.""],""jurisdiction"":""Indonesia"",""time_periods"":{""notice_period"":""30 days for notifying changes to the Minister"",""warranty_period"":null,""contract_duration"":null,""limitation_period"":null},""contract_type"":""Corporate Law"",""document_type"":""Law"",""governing_law"":""The Law of the Republic of Indonesia"",""payment_terms"":null,""contract_value"":null,""document_title"":""Law of the Republic of Indonesia Number 40 of 2007 Concerning Limited Liability Company"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-08-15 09:46:17.851+00,2025-08-15 09:47:33.524222+00,,,,false,,,1,,0,,[],0,,"Here's a detailed Markdown summary of the provided document:
+
+```markdown
+# Summary of the Law of the Republic of Indonesia Number 40 of 2007 Concerning Limited Liability Company
+
+**Document Type:** Law
+
+**Analysis Framework:** Legal Contract
+
+### Contract Overview
+*   **Parties Involved:** The Republic of Indonesia, represented by the President and the House of Representatives.
+*   **Purpose:** To regulate Limited Liability Companies (LLCs) in Indonesia, replacing Law No. 1 of 1995, to foster a conducive business environment.
+*   **Key Terms:** This law defines the establishment, governance, capital structure, operations, and dissolution of Limited Liability Companies in Indonesia.
+
+### Financial Terms
+
+*   **Minimum Authorized Capital:** The authorized capital of a company must be at least Rp 50,000,000.00 (fifty million rupiah).
+*   **Issued and Paid-Up Capital:** At least 25% of the authorized capital must be issued and fully paid up.
+
+### Key Obligations
+*   **Establishment:** An LLC must be established by two or more persons based on a notarial deed in Indonesian.
+*   **Articles of Association:** The deed of establishment must include articles of association outlining the company's name, domicile, purpose, objectives, capital structure, and governance.
+*   **Legal Entity Status:** An LLC obtains legal entity status upon issuance of a Ministerial Decree. Founders must apply for this decree within 60 days of signing the deed of establishment.
+*   **Shareholder Liability:** Shareholders are generally not personally liable for the company's agreements or losses beyond their shareholding, except in cases of non-compliance with legal entity requirements, bad faith exploitation, illegal actions, or illegal utilization of company assets.
+*   **Company Registry:** The Minister (responsible for law and human rights) maintains a Company Registry, which is open to the public and includes key company data.
+*   **General Meeting of Shareholders (GMS):** The GMS holds significant authority, including appointing and dismissing directors and commissioners, approving annual reports, and deciding on mergers, acquisitions, and dissolutions. It establishes procedures for decision making through the GMS.
+
+### Important Dates
+*   **Enactment Date:** August 16, 2007.
+*   **Application for Ministerial Decree:** Must be submitted within 60 days of the deed of establishment signing date.
+*   **GMS for Accepting Initial Acts:** The first GMS to accept legal acts of the founders must be held within 60 days after legal entity status is obtained.
+*   **Annual GMS:** Must be convened no later than 6 months after the end of the accounting year.
+*   **Adaptation of Articles:** Companies existing before this law have one year to adjust their articles of association.
+
+### Key Provisions and Insights
+
+*   **Focus on Good Governance:** The law emphasizes transparency and accountability through the requirement of a Company Registry, regulated GMS procedures, and defined responsibilities for directors and commissioners.
+*   **Capital Requirements:** It sets a minimum capital requirement, although sector-specific regulations may stipulate higher amounts.
+*   **Shareholder Protection:** It includes provisions to protect minority shareholders and creditors during significant corporate actions like mergers or acquisitions.
+*   **Social and Environmental Responsibility:** The law mandates social and environmental responsibility for companies engaged in activities related to natural resources.
+*   **Liquidation Process:** Provides a clear procedure for company dissolution and liquidation, including notification to creditors and asset distribution.
+*   **Amendments of Articles of Association:** It details steps for amending the articles of association, with different requirements for different categories of changes, including the change to Public Company status or those involving mergers. Some amendments require the Minister's approval.
+*   **Board of Directors and Commissioners:** Establishes the requirements, responsibilities, and limitations of both the Board of Directors and the Board of Commissioners including the provision that both must be free of bankruptcy-related issues for at least five years prior to appointment.
+
+This summary provides an executive-level overview of the Indonesian Limited Liability Company Law, highlighting its purpose, key obligations, and essential provisions for stakeholders.",,,,,,,305817,,false,
+5e9c70a0-3d1b-4625-ba25-5e2db72b88f6,Sale and Purchase Agreement Indonesia.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/Sale and Purchase Agreement Indonesia.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 06:27:00.039+00,2025-09-02 06:27:00.123427+00,,,,false,,,1,,0,,[],0,,,,,,,,,126014,,false,
+63bec761-73d8-443c-bb4e-8cca9a4374eb,LPKR Tambahan KI Jun 4 2024.pdf,404265fc-27f0-41a9-842e-dde3f76b540c/2025-07-02T02-41-12-LPKR Tambahan KI Jun 4 2024.pdf,404265fc-27f0-41a9-842e-dde3f76b540c/2025-07-02T02-41-12-LPKR Tambahan KI Jun 4 2024.pdf,83f39fbe69fbc4ddebf783f0f57877592444a6aad7fb84e75918cdf2f6689aea,Disclosure of Information,Amendment and/or Addition to the Disclosure of Information,Disclosure Of Information - Pt Lippo Karawaci Tbk,,,,"[""PT Lippo Karawaci Tbk"",""Shareholders of PT Lippo Karawaci Tbk""]",,,Laws and regulations of the Republic of Indonesia,Indonesia,id,,"[""Additional Business Activities (Addition of KBLI)"",""General Meeting of Shareholders (GMS)"",""OJK Regulation No. 17/POJK.04/2020"",""Feasibility Study"",""On Street Parking Activities (KBLI 52214)"",""Off Street Parking Activities (KBLI 52215)""]","[""PT Lippo Karawaci Tbk to disclose information regarding the addition of business activities to shareholders"",""PT Lippo Karawaci Tbk to obtain shareholder approval for the addition of business activities at the General Meeting of Shareholders"",""PT Lippo Karawaci Tbk to comply with OJK regulations regarding material transactions and changes of business activities"",""PT Lippo Karawaci Tbk to ensure the accuracy and completeness of the disclosed information""]",,,,,,,complete,complete,"{""parties"":[""PT Lippo Karawaci Tbk"",""Shareholders of PT Lippo Karawaci Tbk""],""summary"":""This document is a disclosure of information by PT Lippo Karawaci Tbk to its shareholders regarding the addition of new business activities, namely on-street and off-street parking activities. It includes feasibility studies, compliance with OJK regulations, and information regarding the company's upcoming General Meeting of Shareholders (GMS) where the addition of these activities will be proposed for approval."",""currency"":null,""key_terms"":[""Additional Business Activities (Addition of KBLI)"",""General Meeting of Shareholders (GMS)"",""OJK Regulation No. 17/POJK.04/2020"",""Feasibility Study"",""On Street Parking Activities (KBLI 52214)"",""Off Street Parking Activities (KBLI 52215)""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[""2024-05-13"",""2024-05-31"",""2024-06-24""],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":null,""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":null,""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""PT Lippo Karawaci Tbk to disclose information regarding the addition of business activities to shareholders"",""PT Lippo Karawaci Tbk to obtain shareholder approval for the addition of business activities at the General Meeting of Shareholders"",""PT Lippo Karawaci Tbk to comply with OJK regulations regarding material transactions and changes of business activities"",""PT Lippo Karawaci Tbk to ensure the accuracy and completeness of the disclosed information""],""jurisdiction"":""Indonesia"",""time_periods"":{""notice_period"":null,""warranty_period"":null,""contract_duration"":null,""limitation_period"":null},""contract_type"":""Amendment and/or Addition to the Disclosure of Information"",""document_type"":""Disclosure of Information"",""governing_law"":""Laws and regulations of the Republic of Indonesia"",""payment_terms"":null,""contract_value"":null,""document_title"":""Disclosure of Information - PT Lippo Karawaci Tbk"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-07-02 02:41:14.272+00,2025-07-21 10:25:05.067129+00,45427,,,false,,,1,,0,,[],0,,"Here's a structured summary of the document:
+
+**Document Type:** Disclosure of Information (Amendment and/or Addition to the Disclosure of Information to the Shareholders)
+
+### Contract Overview
+*   **Parties Involved:** PT Lippo Karawaci Tbk (""the Company"") and its Shareholders
+*   **Purpose:** This document discloses information regarding the plan to add new business activities to PT Lippo Karawaci Tbk, specifically related to parking activities. This requires shareholder approval at the General Meeting of Shareholders (GMS). The document complies with OJK (Financial Services Authority) Regulation No. 17/2020.
+*   **Key Terms:** The company intends to add ""On Street Parking Activities (KBLI 52214)"" and ""Off Street Parking Activities (KBLI 52215)"" to its existing business activities.
+
+### Financial Terms
+*   The addition of the new KBLI is expected to increase the Company's income by 4.21%.
+*   The plan is deemed financially feasible based on the appraiser's report, with a positive Net Present Value (NPV) of Rp8,963,278,156 and an Internal Rate of Return (IRR) of 64.38%, and a Payback Period of 3 years 5 months.
+
+### Key Obligations
+*   The Company must obtain shareholder approval at the GMS to amend its Articles of Association to include the new business activities.
+*   The Company has provided this Disclosure of Information to shareholders and relevant authorities (OJK, IDX).
+
+### Important Dates
+*   **Disclosure Date:** 4 June 2024
+*   **Announcement of Disclosure of Information on GMS and Websites:** 13 May 2024
+*   **General Meeting of Shareholders (GMS):** 24 June 2024. This meeting will seek approval for the addition of the new business activities and amend the Article 3 of the Company.
+*   **Feasibility Study Report Dates:** 13 May 2024 and 31 May 2024.
+
+### Key Provisions
+*   The basis for adding the parking business activities is that they are an integral part of the company's real estate business.
+*   The company already conducts parking business activities through a subsidiary, PT Sky Parking Utama. This addition aims to align governance and increase the scope of parking business services.
+*   The Company intends to utilize existing resources, facilities, and assets to conduct the additional business activities.
+*   The Disclosure states that the Company has not received any objections from any parties regarding the proposed addition of business activities.
+
+### Capital Structure
+
+*   **Authorized Capital:** 92,000,000,000 Shares (Rp 9,200,000,000,000)
+*   **Paid-Up and Issued Capital:** 70,898,018,369 Shares (Rp 7,089,801,836,900)
+
+**Major Shareholders:**
+
+*   PT Inti Anugerah Pratama: 25.62%
+*   Sierra Corporation: 15.88%
+*   PT Primantara Utama Sejahtera: 10.4%
+*   Public (each less than 5%): 48.07%
+
+### Key Insights
+*   PT Lippo Karawaci Tbk is seeking shareholder approval to expand its business into on-street and off-street parking activities.
+*   The feasibility study indicates that this expansion is financially viable and will positively impact the company's financial condition.
+*   The company plans to leverage its existing subsidiary and resources for this expansion.
+*   Shareholder approval is required at the upcoming GMS on 24 June 2024.",,,,,,Legal Document - Transaction Overview.pdf,,,false,
+6988b286-ad07-4f47-8c94-c7806a99af1e,Resume RUPST LK Rev Jun 16 2025.pdf,,legal/Resume RUPST LK Rev Jun 16 2025-1752318899490.pdf,,Summary of Minutes,Annual General Meeting of Shareholders,Ringkasan Risalah Rapat Umum Pemegang Saham Tahunan Pt Lippo Karawaci Tbk.,,2025-06-13,,"[""PT LIPPO KARAWACI Tbk.""]",,,"Anggaran Dasar Perseroan, POJK 15/2020",Jakarta,id,,"[""Annual Report"",""Financial Statements"",""Audit"",""Board of Directors"",""Board of Commissioners"",""Remuneration"",""Retained earnings"",""Cash Reserve""]","[""The Company shall conduct an audit of the financial statements for the year ending December 31, 2025."",""The Company shall set aside Rp1,000,000,000.00 (one billion Rupiah) as a cash reserve.""]",,,,1000000000.00,IDR,,complete,complete,"{""parties"":[""PT LIPPO KARAWACI Tbk.""],""summary"":""This document is a summary of the minutes of the Annual General Meeting of Shareholders of PT LIPPO KARAWACI Tbk. The meeting took place on June 13, 2025, and covered several key agenda items, including approval of the Annual Report, determination of the use of net profit, appointment of an accounting firm, changes in the composition of the Board of Directors and/or Board of Commissioners, and setting the remuneration for members of the Board of Commissioners and Board of Directors for 2025. The decisions were made through voting by shareholders or their representatives, with detailed vote counts provided for each agenda item."",""currency"":""IDR"",""key_terms"":[""Annual Report"",""Financial Statements"",""Audit"",""Board of Directors"",""Board of Commissioners"",""Remuneration"",""Retained earnings"",""Cash Reserve""],""expiry_date"":null,""obligations"":[""The Company shall conduct an audit of the financial statements for the year ending December 31, 2025."",""The Company shall set aside Rp1,000,000,000.00 (one billion Rupiah) as a cash reserve.""],""jurisdiction"":""Jakarta"",""contract_type"":""Annual General Meeting of Shareholders"",""document_type"":""Summary of Minutes"",""governing_law"":""Anggaran Dasar Perseroan, POJK 15/2020"",""payment_terms"":null,""contract_value"":1000000000,""document_title"":""Ringkasan Risalah Rapat Umum Pemegang Saham Tahunan PT LIPPO KARAWACI Tbk."",""effective_date"":""2025-06-13""}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-07-12 11:15:00.84765+00,2025-07-17 03:26:54.376556+00,,,,false,,,1,,0,,[],0,fbe46b9ad75a38bf7e06ca2036047d93f1bf147327af7948fcb69ed0e123128c,"### Document Type
+Summary of Minutes of the Annual General Meeting of Shareholders (AGM)
+
+### Key Categories
+*   Attendance and Representation
+*   Resolutions Passed
+*   Changes in Board Composition
+
+### Attendance and Representation
+*   **Date of Meeting:** Friday, June 13, 2025
+*   **Location:** Hotel Aryaduta Jakarta, Jalan Prajurit KKO Usman dan Harun Nomor 44-48, Gambir, Jakarta Pusat.
+*   **Shareholder Representation:** 54,255,156,664 shares, representing 76.5480% of the total issued and paid-up shares (70,877,317,769 shares).
+*   **Board of Commissioners Present:** Prof. Dr. Ir. Ginandjar Kartasasmita (President Commissioner/Independent Commissioner), Kin Chan (Commissioner), Ketut Budi Wijaya (Commissioner).
+*   **Board of Directors Present:** Marlo Budiman (President Director), Marshal Martinus Tissadharma (Director), Surya Tatang (Director), Dominique Dion Leswara (Director).
+
+### Resolutions Passed
+*   **Agenda Item 1: Approval of the Annual Report:** Approved the Company's Annual Report for the fiscal year ending December 31, 2024, including the Supervisory Report of the Board of Commissioners and the Financial Statements of the Company, which were audited by Kantor Akuntan Publik ""Amir Abadi Jusuf, Aryanto, Mawar & Rekan"" with an ""unqualified opinion"".
+*   **Agenda Item 2: Appropriation of Net Profit:** Approved the allocation of Rp1,000,000,000.00 (one billion Rupiah) to be set aside as a reserve fund, and the remaining net profit to be recorded as retained earnings. No dividend distribution for the fiscal year ending December 31, 2024 was approved.
+*   **Agenda Item 3: Appointment of Public Accountant:** Authorized the Board of Commissioners to appoint a Public Accountant and/or a Public Accounting Firm to audit the Company's Financial Statements for the fiscal year 2025.
+*   **Agenda Item 4: Changes in Board Composition:** Accepted the resignation of Ibu Gita Irmasari as Director of the Company and granted full release from responsibility. Appointed Bapak Fendi Santoso as Director of the Company, effective from the closing of the Meeting.
+*   **Agenda Item 5: Remuneration:** Authorized the Board of Commissioners or the Nomination and Remuneration Committee to determine the salary, honorarium, allowances and other remuneration for members of the Board of Directors and Board of Commissioners.
+
+### Changes in Board Composition
+*   **Resignation:** Gita Irmasari resigned as Director.
+*   **Appointment:** Fendi Santoso appointed as Director.
+*   **Updated Board Composition:**
+    *   **Board of Commissioners:**
+        *   Prof. DR. IR. Ginandjar Kartasasmita (President Commissioner/Komisaris Independen)
+        *   Anangga W. Roosdiono (Komisaris Independen)
+        *   Dr. Kartini Sjahrir (Komisaris Independen)
+        *   Anand Kumar (Komisaris)
+        *   Kin Chan (Komisaris)
+        *   George Raymond Zage III (Komisaris)
+        *   Ketut Budi Wijaya (Komisaris)
+    *   **Board of Directors:**
+        *   Marlo Budiman (President Director)
+        *   Marshal Martinus Tissadharma (Director)
+        *   Surya Tatang (Director)
+        *   Dominique Dion Leswara (Director)
+        *   David Iman Santosa (Director)
+        *   Fendi Santoso (Director)",standard,2025-07-12 11:15:01.714+00,,,,2025-06-13 - Annual General Meeting Of Shareholders - PT LIPPO KARAWACI Tbk.,,,false,
+6b4721e1-4c5f-4282-8986-30d58c3615aa,Sale and Purchase Agreement Indonesia.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/Sale and Purchase Agreement Indonesia.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 05:22:48.477+00,2025-09-02 05:22:48.528785+00,,,,false,,,1,,0,,[],0,,,,,,,,,126014,,false,
+7005c216-8020-46cf-babe-e98d1a22f3eb,Land for Sale Dispute Map Indonesia Nov 29 2024.jpeg,404265fc-27f0-41a9-842e-dde3f76b540c/2025-07-02T04-42-26-Land for Sale Dispute Map Indonesia Nov 29 2024.jpeg,404265fc-27f0-41a9-842e-dde3f76b540c/2025-07-02T04-42-26-Land for Sale Dispute Map Indonesia Nov 29 2024.jpeg,ff5869f369c7b52238a3826908183efbe7715e61e93b7e790c301250855e09b9,Legal Document,Asset Location Information,Land For Sale Dispute Map Indonesia Nov 29 2024.jpeg,,,,[],,,,,id,,"[""LOKASI ASET"",""Jl. Kalingga"",""Jl. MH. Thamrin"",""Jl. Menteng Raya"",""CIMB NIAGA (Lippo Cikarang)""]",[],,,,,,,complete,complete,"{""parties"":[],""summary"":""This document appears to depict the location of an asset, identified as 'LOKASI ASET', situated near CIMB NIAGA (Lippo Cikarang), Jl. Kalingga, Jl. MH. Thamrin, and Jl. Menteng Raya. The proximity to businesses like Matahari Department Store Lippo Cikarang, and Honda Cikarang suggests a commercially relevant location."",""currency"":null,""key_terms"":[""LOKASI ASET"",""Jl. Kalingga"",""Jl. MH. Thamrin"",""Jl. Menteng Raya"",""CIMB NIAGA (Lippo Cikarang)""],""expiry_date"":null,""obligations"":[],""jurisdiction"":null,""contract_type"":""Asset Location Information"",""document_type"":""Document"",""governing_law"":null,""payment_terms"":null,""contract_value"":null,""document_title"":""Document regarding Asset Location"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-07-02 04:42:26.72+00,2025-07-17 03:53:45.382771+00,,,,false,,,1,,0,,[],0,,"### Location & Accessibility
+*   **Asset Location (LOKASI ASET)**: Bordered by Jl. MH. Thamrin on multiple sides.
+*   **Nearby Streets**: Jl. Kolingga, Jl. Menteng Raya, Jl. MH. Thamrin.
+*   **Nearby Establishments**: CIMB NIAGA (Lippo Cikarang), Matahari Department Store (Lippo Cikarang), Honda Cikarang.",,,,,,Asset Location Information - Location & Accessibility,,,false,
+70dc4e3f-616b-4eec-a676-1b58bc53c67d,,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/,,application/octet-stream,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 05:07:28.99+00,2025-09-02 05:07:29.016077+00,,,,false,,,1,,0,,[],0,,,,,,,,,0,,false,
+750e27f3-3111-48a2-8d97-b40edfcd6486,,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/,,application/octet-stream,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 05:37:29.177+00,2025-09-02 05:37:29.232983+00,,,,false,,,1,,0,,[],0,,,,,,,,,0,,false,
+7cc15088-3e93-4de4-bbfb-9da5a9faf190,IJCJR 2 2022 Proofread Final.pdf,,legal/0d4f5e60-258a-46ea-92ce-c0ffc9263e1b/2025/08/7cc15088-3e93-4de4-bbfb-9da5a9faf190.pdf,cbc6c58868286dafeb63a8bb6deb81ff123b141f4c2b98e2e06285aa429dd5f0,Article,Multi-Year Contract,Academic Journal Article - Multi-year Contract In Indonesia: Its Validity And Conditions Of Its Formation,,,,"[""I Wayan Suka Wirawan"",""I Nyoman Putu Budiartha""]",,,Indonesian statutory laws,Indonesia,id,,"[""Multi-year contract"",""Multi-year funding"",""Long-term contract"",""Fiscal year"",""Principle of annual funding"",""Appropriations law"",""Specific statutory authority""]","[""Compliance with Indonesian statutory laws and the 1945 Constitution."",""Securing approval from authorized officials for multi-year contracts."",""Ensuring multi-year contracts provide substantial savings."",""Adherence to the \""Principle of Annual Funding\"" unless otherwise permitted by specific statute.""]",,,,,,"Government procurements constitutionally and statutorily should be funded from the state finances, and such funding should be appropriated annually through a statute or based on regional legislation annually enacted.",complete,complete,"{""parties"":[""I Wayan Suka Wirawan"",""I Nyoman Putu Budiartha""],""summary"":""This article examines the validity of multi-year contracts in Indonesia, focusing on their compliance with existing regulations and constitutional principles. It analyzes the legal risks associated with multi-year contracts due to Indonesia's budgetary laws, which generally prohibit funding contracts for more than one fiscal year. The research employs a qualitative, multiple-research approach, comparing Indonesian statutory laws, court decisions, and the best practices from the US Department of Defense. The study concludes that without specific statutory authority, multi-year contracts in public procurement are legally invalid, and their formation based on existing regulations is flawed. The article recommends adopting more specific US multi-year contract conditions to improve validity and applicability."",""currency"":null,""key_terms"":[""Multi-year contract"",""Multi-year funding"",""Long-term contract"",""Fiscal year"",""Principle of annual funding"",""Appropriations law"",""Specific statutory authority""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":null,""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":null,""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""Compliance with Indonesian statutory laws and the 1945 Constitution."",""Securing approval from authorized officials for multi-year contracts."",""Ensuring multi-year contracts provide substantial savings."",""Adherence to the \""Principle of Annual Funding\"" unless otherwise permitted by specific statute.""],""jurisdiction"":""Indonesia"",""time_periods"":{""notice_period"":null,""warranty_period"":null,""contract_duration"":""Maximum of three fiscal years if benefits are provided and work takes longer than 1 fiscal year"",""limitation_period"":null},""contract_type"":""Multi-Year Contract"",""document_type"":""Article"",""governing_law"":""Indonesian statutory laws"",""payment_terms"":""Government procurements constitutionally and statutorily should be funded from the state finances, and such funding should be appropriated annually through a statute or based on regional legislation annually enacted."",""contract_value"":null,""document_title"":""Academic Journal Article - Multi-Year Contract in Indonesia: Its Validity and Conditions of Its Formation"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-08-04 12:16:18.147+00,2025-08-04 12:17:36.658605+00,,,,false,,,1,,0,,[],0,,"Here's a summary of the provided document, formatted as a Markdown report:
+
+# Document Summary: Multi-Year Contract in Indonesia: Its Validity and Conditions of Its Formation
+
+**Document Type:** Legal Analysis / Academic Paper
+
+**Analysis Framework:** Legal Contracts
+
+### Contract Overview
+*   **Purpose:** To analyze the legality and validity of multi-year contracts in Indonesian public procurement, given the existing legal framework. It also seeks to identify conditions for valid formation.
+*   **Parties Involved:** The Indonesian government and contractors (implied).
+*   **Key Terms:** Analyzes multi-year contracts in light of Indonesian laws, focusing on its consistency with the constitution and financial regulations.
+
+### Financial Terms
+*   **Core Issue:** Multi-year contracts potentially violate the principle of annual funding as stipulated in the 1945 Constitution, State Finances Act 2003, and State Treasury Act 2004.
+*   **Funding Source:** Multi-year contracts are currently funded through annual appropriations. The paper questions if this is a legally valid basis.
+*   **Substantial Savings:** The document suggests substantial savings is one basis to determine conditions for the formation of a multi-year contract. Savings of 10-20% are considered substantial.
+
+### Key Obligations
+*   **Government's Obligation:** The government must have specific statutory authority to enter into multi-year contracts.  Existing regulations are deemed too general.
+*   **Government's Authority:** The research concludes that without specific statutory authority, the government lacks the authority to exercise multi-year contracts within public procurement, and multi-year contracts that are based upon the existing regulations are considered legally invalid.
+*   **Recommended Actions:**
+    *   The study recommends adopting U.S. multi-year contract conditions which are highly specific and validated for all types of scenarios.
+    *   Substantial savings should be the basis for determining conditions for the formation of a multi-year contract.
+
+### Important Dates
+*   **Fiscal Year Definition:** The paper notes that the fiscal year in Indonesia is defined as January 1 to December 31.
+*   **Presidential Regulation No. 12 of 2021:** Redefines multi-year contract provisions in Indonesia, however, the document notes there are still bias concerns with the concept of a multi-year contract.
+
+### Key Insights
+*   **Legality Questioned:** The core argument is that multi-year contracts in Indonesia lack a clear legal basis because they may conflict with the annual funding principle enshrined in constitutional and financial laws.
+*   **Need for Specific Statute:** The analysis strongly suggests that Indonesia needs a specific statutory law explicitly authorizing multi-year contracts to ensure their legal validity.  Relying on general regulations is insufficient and opens the door to legal challenges.
+*   **US Model Recommended:** The study recommends adopting the U.S. model for multi-year contracts, which includes specific and validated conditions.
+*   **Emphasis on Savings:** The authors argue that significant savings derived from multi-year contracts should be a key factor in determining their conditions.
+*   **Invalidity Claim:** The document asserts that current multi-year contract formations based on existing regulations are legally invalid.
+
+This summary highlights the central legal issue addressed in the paper – the lack of a solid legal foundation for multi-year contracts in Indonesia – and underscores the need for legislative reform.",,,,,,,1079036,,false,
+922e1883-74f2-480d-a326-b6ff63c7f633,Article Text 263 May 23 2019.pdf,,legal/0d4f5e60-258a-46ea-92ce-c0ffc9263e1b/2025/08/922e1883-74f2-480d-a326-b6ff63c7f633.pdf,ff7f2b62951571eb3c86e0f64807d89b31618ff29a3ac48f3c059b87f784a9de,Article,Construction Contract,Fidic And Construction Contracts In Indonesia,,,,"[""Owners/Employers"",""Contractors"",""Architects/Designers""]",,,Indonesian Law,Indonesia,id,,"[""FIDIC (International Federation of Consulting Engineers)"",""Construction Contract"",""Contract Management"",""Industry risks"",""Legal framework"",""rights and obligations"",""construction management"",""contractual relations""]","[""Employers obligation to pay agreed amount"",""Contractors obligation to perform the work"",""Both parties need to fulfill contract""]",,,,,,"Payments can be done in stages, it follows the schedule in the contract.",complete,complete,"{""parties"":[""Owners/Employers"",""Contractors"",""Architects/Designers""],""summary"":""This paper discusses the importance of construction contracts in Indonesia, particularly in relation to the FIDIC standard. It covers various aspects of construction law, contract management, and different types of contracts used in the construction industry."",""currency"":null,""key_terms"":[""FIDIC (International Federation of Consulting Engineers)"",""Construction Contract"",""Contract Management"",""Industry risks"",""Legal framework"",""rights and obligations"",""construction management"",""contractual relations""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":null,""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":null,""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""Employers obligation to pay agreed amount"",""Contractors obligation to perform the work"",""Both parties need to fulfill contract""],""jurisdiction"":""Indonesia"",""time_periods"":{""notice_period"":null,""warranty_period"":null,""contract_duration"":null,""limitation_period"":null},""contract_type"":""Construction Contract"",""document_type"":""Article"",""governing_law"":""Indonesian Law"",""payment_terms"":""Payments can be done in stages, it follows the schedule in the contract."",""contract_value"":null,""document_title"":""FIDIC and Construction Contracts in Indonesia"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-08-10 19:21:43.604+00,2025-08-10 19:22:45.978901+00,,,,false,,,1,,0,,[],0,,"Okay, here's a structured Markdown summary of the document you provided.
+
+**Document Type:** Academic Paper on Construction Contracts and FIDIC in Indonesia
+
+**Analysis Framework:**  Focusing on contract overviews, key obligations, and types, since the document extensively discusses different construction contract types and the role of FIDIC.
+
+### Contract Overview
+*   **Title:** FIDIC and Construction Contracts in Indonesia
+*   **Author:** Indramanik, Ida Bagus Gede
+*   **Core Argument:** The paper analyzes how FIDIC (Federation Internationale Des Ingenieurs-Conseils) international contract standards have been adopted by national construction contracts in Indonesia to ensure smooth operations in the construction industry.
+*   **Key Themes:** Legal aspects of construction, contract management, and the construction cycle.
+*   **Central Point:** All activities in the construction industry should be based on agreed-upon agreements, mainly construction contracts. All involved parties (owners, designers/architects, contractors, suppliers) must act professionally.
+
+### Key Obligations and Roles of Parties
+
+*   **Parties Involved:** The paper identifies several parties involved in a construction project.
+*   **Employer/Client:**  Can be individuals, companies or consortia. The client has full legal rights to the results of the construction work, and is responsible for paying the agreed sum. The client can be represented by a ""construction management professional.""
+*   **Architect/Designer:** A professionally recognized individual or company.
+*   **Contractor:** Responsible for executing the construction work. This role can involve multiple specialized contractors.
+*   **Relationship:** The document stresses the importance of synergy between all parties involved contractually, functionally and structurally.
+
+### Types of Construction Contracts Discussed
+
+The paper describes various types of construction contracts:
+
+*   **General Contracting Method:** Contract between the owner and a general contractor, who may then use subcontractors.
+*   **Separate Contracts Method:** The owner directly contracts with multiple specialized contractors. The owner then takes on the role of overall project management (or hires a project manager).
+*   **Force Account (Swakelola):** The owner directly manages and executes the project without a formal contract.  This is suitable for smaller projects.
+*   **Design-Build:** A single contract covers both the design and construction phases.
+*   **Construction Management Professional:** A professional management company is hired by the project owner to manage the entire process.
+
+### FIDIC Contracts and Their Application
+
+*   **FIDIC Standards:** The paper focuses heavily on the adoption of FIDIC standards in Indonesian construction contracts.
+*   **General Conditions of Contract:** A comprehensive and universal framework (Part I) with 72 clauses, dealing with definitions, interpretations, contract documents, etc.
+*   **Conditions of Particular Application:** Part II acts as a bridge to tailor the Contract of specific project, and provides changes from the General Conditions.
+*   **Short Form Contract:** A simplified contract with 15 clauses, for smaller, non-permanent construction projects.
+
+### Contract Formation and Management
+*   **Tendering Process:**
+    *   Announcement of pre-qualification.
+    *   Submission of pre-qualification documents by contractors.
+    *   Analysis of pre-qualification by the project owner.
+    *   Issuance of invitations to tender for pre-qualified contractors.
+    *   Explanation and field review meeting.
+    *   Submission of offers.
+    *   Evaluation of offers and announcement of the winning bid.
+*   **Contract Management Activities:**
+    *   Contract preparation
+    *   Contract execution guidelines
+    *   Contract monitoring tools
+    *   Contract administration
+### Payment Types
+*   **Unit Price Contract:** The contractor gives price per unit of work
+*   **Cost-Plus Fee:** The contractor is reimbursed for expenses plus a fee
+*   **Lump Sum Contract:** Contractor agrees on a fixed amount for the project
+
+### Key Insights
+
+*   **FIDIC as a Foundation:** The paper highlights the importance of FIDIC standards in shaping construction contracts in Indonesia, promoting openness and completeness.
+*   **Risk Allocation:** Construction contracts are fundamentally about risk allocation between parties.
+*   **Contract Management Crucial:** Proper contract management is essential for successful project execution, covering preparation, implementation, monitoring, and administration.
+*   **Customization is Key:** A one-size-fits-all approach to contracts is not appropriate. Contracts need to be tailored to the specific project requirements, with reference to local context and law.",,,,,,,993625,,false,
+95b70034-35b4-4403-8f34-692c830aecba,GIZ 2018 General Terms and Conditions.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/GIZ 2018 General Terms and Conditions.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 06:22:37.274+00,2025-09-02 06:22:37.280002+00,,,,false,,,1,,0,,[],0,,,,,,,,,278319,,false,
+a36b0577-3224-4190-a1cf-2541c83d7074,Lease Agreement 16821.pdf,legal/Lease Agreement 16821-1753099146234.pdf,legal/Lease Agreement 16821-1753099146234.pdf,3652d81861c368e7d74edebb9e1bd07c4e36b9be993d3f8a2ecef04b2d516d07,Agreement,Lease Agreement,Lease Agreement - Pt Salim Ivomas Pratama Tbk & Pt Ciptasubur Nusajaya,,2017-01-01,2019-12-31,"[""PT SALIM IVOMAS PRATAMA Tbk"",""PT CIPTASUBUR NUSAJAYA""]",,,Republic of Indonesia,Indonesia,id,,"[""Lease of infrastructure"",""Rental fee"",""Maintenance obligations"",""Insurance obligations"",""Termination conditions"",""Arbitration""]","[""The FIRST PARTY intends to lease an infrastructure to the SECOND PARTY."",""The SECOND PARTY intends to lease to FIRST PARTY'S GROUP an infrastructure"",""Lessee to maintain the leased property and repair any damage"",""Lessor to insure the infrastructure"",""Lessee to pay electricity, telephone, water bills and taxes""]",,,,,USD,Rental fee to be determined based on mutual agreement and prevailing market conditions.,complete,complete,"{""parties"":[""PT SALIM IVOMAS PRATAMA Tbk"",""PT CIPTASUBUR NUSAJAYA""],""summary"":""This is a lease agreement between PT SALIM IVOMAS PRATAMA Tbk and PT CIPTASUBUR NUSAJAYA for the lease of an infrastructure. The agreement is effective from January 1, 2017, to December 31, 2019, and may be extended. The lease fee is to be determined based on mutual agreement with consideration to market conditions. The agreement outlines the responsibilities and obligations of both parties, including maintenance, insurance, and compliance with regulations."",""currency"":""USD"",""key_terms"":[""Lease of infrastructure"",""Rental fee"",""Maintenance obligations"",""Insurance obligations"",""Termination conditions"",""Arbitration""],""expiry_date"":""2019-12-31"",""legal_dates"":{""review_date"":null,""completion_date"":""2019-12-31"",""milestone_dates"":[],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":""2017-01-01"",""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":null,""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""The FIRST PARTY intends to lease an infrastructure to the SECOND PARTY."",""The SECOND PARTY intends to lease to FIRST PARTY'S GROUP an infrastructure"",""Lessee to maintain the leased property and repair any damage"",""Lessor to insure the infrastructure"",""Lessee to pay electricity, telephone, water bills and taxes""],""jurisdiction"":""Indonesia"",""time_periods"":{""notice_period"":""3 months prior to expiry"",""warranty_period"":null,""contract_duration"":""From 01 January 2017 until 31 December 2019"",""limitation_period"":null},""contract_type"":""Lease Agreement"",""document_type"":""Agreement"",""governing_law"":""Republic of Indonesia"",""payment_terms"":""Rental fee to be determined based on mutual agreement and prevailing market conditions."",""contract_value"":null,""document_title"":""Lease Agreement - PT SALIM IVOMAS PRATAMA Tbk & PT CIPTASUBUR NUSAJAYA"",""effective_date"":""2017-01-01""}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-07-21 11:59:08.106+00,2025-07-21 12:00:08.66548+00,,,,false,,,1,,0,,[],0,3652d81861c368e7d74edebb9e1bd07c4e36b9be993d3f8a2ecef04b2d516d07,"Okay, here's a comprehensive summary of the provided document, formatted in Markdown.
+
+**Document Type:** Infrastructure Lease Agreement
+
+### Contract Overview
+*   **Parties Involved:**
+    *   **First Party (Lessor):** PT SALIM IVOMAS PRATAMA Tbk.
+    *   **Second Party (Lessee):** PT CIPTASUBUR NUSAJAYA
+*   **Purpose:** Agreement for the lease of an infrastructure.
+*   **Effective Date:** March 29, 2017
+*   **Governing Law:** Laws of the Republic of Indonesia
+
+### Financial Terms
+*   **Lease Fee Determination:** Determined from time to time based on mutual agreement, considering prevailing market conditions. The lease fee shall be no less favorable to the lessor than offers from other independent third parties.
+*   **Annual Transaction Limits (Maximum Amounts):**
+    *   2017: US $0.4 million (IDR 517.6 million)
+    *   2018: US $0.4 million (IDR 569.4 million)
+    *   2019: US $0.4 million (IDR 626.3 million)
+*   **Overage Approval:** If the annual transaction value exceeds the stated limits, prior announcement and approval from independent shareholders of First Pacific Limited (""FPCL"") is required.
+*   **Taxes:** Lease fee excludes Value Added Tax and Income Tax, which will be borne by the parties according to prevailing tax regulations.
+
+### Key Obligations
+
+*   **Lessor (PT SALIM IVOMAS PRATAMA Tbk):**
+    *   Lease the infrastructure to the Lessee.
+    *   Ensure the infrastructure is free from any attachments or prior claims.
+    *   Maintain the infrastructure (repair own expense after notification from the lessee)
+    *   Insure the infrastructure against fire and earthquake damage.
+    *   Notify the lessee two weeks prior to mortgaging the infrastructure to a third party.
+
+*   **Lessee (PT CIPTASUBUR NUSAJAYA):**
+    *   Pay the lease fee.
+    *   Use the infrastructure in accordance with the intended purpose and relevant laws.
+    *   Obtain necessary permits and licenses related to the infrastructure.
+    *   Maintain the leased property.
+    *   Pay electricity, telephone, water bills, and Land and Building Tax.
+    *   Insure furniture within the infrastrcuture on the lessee's expense.
+    *   Shall obey all regulations of the authority, specifically on the aspects of moral, public order, cleanness, and hygiene, in relation to the use of the leased property
+
+### Important Dates
+*   **Initial Term:** January 1, 2017 to December 31, 2019.
+*   **Automatic Renewal:** Automatically renews for successive 3-year periods, subject to Hong Kong Stock Exchange rules applicable to FPCL or waivers.
+*   **Termination Notice:** A party must provide the other party with a 3-month notice period if it decides to terminate.
+
+### Key Insights
+
+*   **Transaction Limits:**  The agreement establishes clear financial limits on the annual lease value, requiring external approval if exceeded. This suggests a potential need for monitoring and reporting to ensure compliance.
+*   **Automatic Renewal:**  The automatic renewal clause provides long-term certainty but also introduces a potential risk if the Hong Kong Stock Exchange requirements (or waivers) are not consistently met.
+*   **Responsibilities & Liabilities:** The agreement clearly allocates responsibilities for maintenance, insurance, and utilities between the Lessor and Lessee, mitigating potential future disputes.
+*   **Governing Law & Dispute Resolution:** The agreement specifies Indonesian law and arbitration through BANI, offering a defined process for resolving any disputes.",,,,,,,,,false,
+a9e49b33-2403-4968-b9d5-f7d23f986ece,Document.pdf,,legal/0d4f5e60-258a-46ea-92ce-c0ffc9263e1b/2025/08/a9e49b33-2403-4968-b9d5-f7d23f986ece.pdf,b808f97446c1e458b383e36907f44a665f885962a4ca0a2e83bdbafdcf00b0a9,Financial Statements,Consolidated Financial Statements,Financial Statements - Pt Matahari Putra Prima Tbk,,,,"[""PT Matahari Putra Prima Tbk"",""Subsidiaries""]",,,Indonesian Financial Accounting Standards,Indonesia,id,,"[""Consolidated financial statements"",""Auditor's report"",""Assets"",""Liabilities"",""Equity"",""Going concern"",""Accounting standards"",""Disclosure""]","[""Preparation and presentation of the consolidated financial statements in accordance with Indonesian Financial Accounting Standards."",""Ensuring the fair presentation of the financial statements."",""Responsibility for internal control."",""Disclosure of material information.""]",,,,,IDR,,complete,complete,"{""parties"":[""PT Matahari Putra Prima Tbk"",""Subsidiaries""],""summary"":""This is a consolidated financial statement for PT Matahari Putra Prima Tbk and its subsidiaries for the years ended December 31, 2023 and 2022. The document includes information about assets, liabilities, equity, income, and expenses. It also describes the company's activities, financial positions, risks, and strategy."",""currency"":""IDR"",""key_terms"":[""Consolidated financial statements"",""Auditor's report"",""Assets"",""Liabilities"",""Equity"",""Going concern"",""Accounting standards"",""Disclosure""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[""2023-12-31"",""2022-12-31""],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":""1986"",""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":""2024-03-28"",""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""Preparation and presentation of the consolidated financial statements in accordance with Indonesian Financial Accounting Standards."",""Ensuring the fair presentation of the financial statements."",""Responsibility for internal control."",""Disclosure of material information.""],""jurisdiction"":""Indonesia"",""time_periods"":{""notice_period"":null,""warranty_period"":null,""contract_duration"":null,""limitation_period"":null},""contract_type"":""Consolidated Financial Statements"",""document_type"":""Financial Statements"",""governing_law"":""Indonesian Financial Accounting Standards"",""payment_terms"":null,""contract_value"":null,""document_title"":""Financial Statements - PT Matahari Putra Prima Tbk"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-08-07 17:54:21.598+00,2025-08-07 17:55:46.953825+00,,,,false,,,1,,0,,[],0,,"Okay, I've analyzed the document and produced the following summary:
+
+```markdown
+### Document Type
+Consolidated Financial Statements (Including Notes & Independent Auditor's Report)
+
+### Analysis Framework
+Financial Document Analysis
+
+### Executive Summary
+The document contains the consolidated financial statements of PT Matahari Putra Prima Tbk and its subsidiary for the years ended December 31, 2023 and 2022. The statements are prepared in accordance with Indonesian Financial Accounting Standards (SAK). The report includes details on the financial position, performance, cash flows, and equity changes of the group. The audit opinion is unqualified, indicating that the financial statements fairly present the financial position and performance in all material respects. However, the auditor's report highlights a material uncertainty related to going concern due to accumulated losses and current liabilities exceeding current assets.
+
+### Financial Performance
+*   **Revenue:** Net sales decreased from Rp7,017,530 million in 2022 to Rp6,914,802 million in 2023.
+*   **Gross Profit:** Declined from Rp1,281,810 million in 2022 to Rp1,208,670 million in 2023.
+*   **Loss from Operations:** Increased from Rp(210,942) million in 2022 to Rp(110,838) million in 2023
+*   **Net Loss:** The net loss for the period decreased from Rp(429,634) million in 2022 to Rp(255,350) million in 2023.
+
+### Financial Position
+*   **Total Assets:** Decreased from Rp3,784,871 million in 2022 to Rp3,641,458 million in 2023.
+*   **Total Liabilities:** Decreased from Rp3,618,854 million in 2022 to Rp3,382,303 million in 2023.
+*   **Equity:** Increased from Rp166,017 million in 2022 to Rp259,155 million in 2023.
+*   **Material Uncertainty Regarding Going Concern:** The auditor's report notes a ""material uncertainty related to going concern"" due to net losses and current liabilities exceeding current assets.
+
+### Key Insights
+*   Despite an unqualified audit opinion, the material uncertainty regarding the company's ability to continue as a going concern is a significant risk.
+*   The company incurred a net loss of Rp(255,350) million in 2023, which is an improvement compared to net loss Rp(429,634) in 2022
+*  The audit firm, Amir Abadi Jusuf, Aryanto, Mawar & Rekan, provided an unqualified opinion on the consolidated financial statements as of December 31, 2023.
+* The report includes a director's declaration of responsibility for the financial statements, signed by Adrian Suherman (President Director) and Mirtha Sukanto (Director), dated March 28, 2024.",,,,,,,4807986,,false,
+bfc0df5e-3d4b-4504-9a55-dae70c82b73e,Sale and Purchase Agreement Indonesia.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/Sale and Purchase Agreement Indonesia.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,complete,completed,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 06:41:59.802+00,2025-09-02 06:42:57.102047+00,57614,,,false,,,1,,0,,[],0,,,,,,,,,126014,,false,
+c58f16a4-4e53-42b0-8956-4ad3769027ac,GIZ 2018 General Terms and Conditions.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/GIZ 2018 General Terms and Conditions.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 06:07:37.173+00,2025-09-02 06:07:37.189702+00,,,,false,,,1,,0,,[],0,,,,,,,,,278319,,false,
+c7b936f4-5b12-4685-a423-4e9cb8c433cc,,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/,,application/octet-stream,,,,,,,,,,,id,,,,,,,,IDR,,processing,pending,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 05:22:29.332+00,2025-09-02 05:22:29.383361+00,,,,false,,,1,,0,,[],0,,,,,,,,,0,,false,
+da1acc40-ad78-4b95-8823-2146473fba4f,Pertamina International Shipping Consolidated 2020.pdf,,legal/0d4f5e60-258a-46ea-92ce-c0ffc9263e1b/2025/08/da1acc40-ad78-4b95-8823-2146473fba4f.pdf,dea1dfa16ae38d9822e099ec34e7df9826dce32e22420043918a9d3d7b40f7ee,Financial Statements,Financial Reporting,Consolidated Financial Statements - Pt Pertamina International Shipping - 31 December 2020,,,,"[""PT Pertamina International Shipping"",""PT Pertamina (Persero)""]",,,Indonesian Financial Accounting Standards,Indonesia,id,,"[""Consolidated financial statements"",""International shipping"",""Assets"",""Liabilities"",""Equity"",""Net Revenue"",""Cost of revenue"",""Income Tax"",""Financial Accounting Standards""]","[""Preparation and fair presentation of consolidated financial statements"",""Compliance with Indonesian Financial Accounting Standards"",""Disclosure of significant accounting policies"",""Disclosure of material transactions"",""Providing imbalan pensiun dengan jumlah minimal sesuai dengan Undang-Undang Ketenagakerjaan No. 13/2003 atau Kontrak Kerja Bersama"",""Provision for bad debt""]",,,,,USD,,complete,complete,"{""parties"":[""PT Pertamina International Shipping"",""PT Pertamina (Persero)""],""summary"":""This document presents the consolidated financial statements of PT Pertamina International Shipping and its subsidiaries as of December 31, 2020. It includes statements of financial position, statements of profit or loss and other comprehensive income, statements of changes in equity, statements of cash flows, and notes to the financial statements."",""currency"":""USD"",""key_terms"":[""Consolidated financial statements"",""International shipping"",""Assets"",""Liabilities"",""Equity"",""Net Revenue"",""Cost of revenue"",""Income Tax"",""Financial Accounting Standards""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":null,""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":""2021-02-19"",""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""Preparation and fair presentation of consolidated financial statements"",""Compliance with Indonesian Financial Accounting Standards"",""Disclosure of significant accounting policies"",""Disclosure of material transactions"",""Providing imbalan pensiun dengan jumlah minimal sesuai dengan Undang-Undang Ketenagakerjaan No. 13/2003 atau Kontrak Kerja Bersama"",""Provision for bad debt""],""jurisdiction"":""Indonesia"",""time_periods"":{""notice_period"":null,""warranty_period"":null,""contract_duration"":null,""limitation_period"":null},""contract_type"":""Financial Reporting"",""document_type"":""Financial Statements"",""governing_law"":""Indonesian Financial Accounting Standards"",""payment_terms"":null,""contract_value"":null,""document_title"":""Consolidated Financial Statements - PT Pertamina International Shipping - 31 December 2020"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-08-07 20:50:33.801+00,2025-08-07 20:51:53.580223+00,,,,false,,,1,,0,,[],0,,"Here's a structured summary of the provided document, formatted in Markdown, focusing on key insights:
+
+**Document Type:** Consolidated Financial Statements
+
+### Executive Summary
+*   This document presents the consolidated financial statements of PT Pertamina International Shipping and its subsidiaries for the year ended December 31, 2020.
+*   The statements are prepared in accordance with Indonesian Financial Accounting Standards (IFAS) and expressed in US Dollars.
+*   The document includes an independent auditor's report from Kantor Akuntan Publik Tanudiredja, Wibisana, Rintis & Rekan (PwC Indonesia).
+
+### Financial Performance
+*   **Net Revenue:** Increased from $493.98 million in 2019 to $598.87 million in 2020.
+*   **Gross Profit:** Increased from $76.34 million to $109.82 million.
+*   **Profit for the Year:** Increased from $66.59 million to $83.71 million.
+*   **Auditor's Opinion:** PwC expresses an unqualified opinion, stating the consolidated financial statements present fairly, in all material respects, the financial position and performance in accordance with IFAS.
+
+### Financial Position
+*   **Total Assets:** Increased significantly from $419.06 million in 2019 to $548.36 million in 2020.
+*   **Current Assets:** Grew from $200.25 million to $228.10 million, mainly due to an increase in cash and cash equivalents.
+*   **Non-Current Assets:** Increased from $218.81 million to $320.26 million, primarily due to increased fixed assets and right-of-use assets.
+*   **Total Liabilities:** Rose from $155.41 million to $201.03 million.
+*   **Equity:** Increased from $263.65 million to $347.34 million.
+
+### Key Insights
+
+*   **IFAS Adoptions:** The Group has adopted new accounting standards, including SFAS 71 and SFAS 73, with prospective application, primarily impacting lease accounting and financial instrument recognition.
+*   **COVID-19 Impact:** Notes indicated economic downturn due to COVID-19, but managements feel that there were no significant adverse impacts in the short term.
+*   **Related Party Transactions:** Significant transactions and balances exist with PT Pertamina (Persero) and its subsidiaries, highlighting the Group's integration within the larger Pertamina group.
+*   **Borrowings:** Pinjaman bank amounted to USD 8.187 million in 2020.
+*   **Capital Management:** The ultimate goal for capital management is to ensure that it maintains a healthy capital ratio for supporting business.
+*   **Government Regulations:** Impact from Law. No. 2/2020 lowered the rate of Corporate Tax to 22%. The impact from that lowered rate has decreased a sum of AS$1.671.446 of deferred tax liabilities in 2020.
+*   **Key Judgements:** Major decisions and actions were made by the Board of Directors and their audit statements were done with sufficient reasoning.",,,,,,,3594692,48184815-153f-4e8f-9439-59f5d24d216e,false,
+f37b9732-377c-40d2-8495-612f3b5fb353,Sale and Purchase Agreement Indonesia.pdf,,legal-docs/0cf1524b-353c-4843-bafc-09b6f1ba3608/Sale and Purchase Agreement Indonesia.pdf,,application/pdf,,,,,,,,,,,id,,,,,,,,IDR,,complete,completed,,,0cf1524b-353c-4843-bafc-09b6f1ba3608,,2025-09-02 06:58:23.269+00,2025-09-02 06:59:18.179003+00,55492,,,false,,,1,,0,,[],0,,,,,,,,,126014,,false,
+f7a1dfe1-c8a8-4423-9cec-a2daa6b565fb,General Contract Conditions Feb 2024.pdf,,legal/General Contract Conditions Feb 2024-1752321892830.pdf,,Contract,General Goods and Services Contract,General Contract Conditions - Customer & Supplier,,,,"[""Customer"",""Supplier""]",,,,"Queensland, Australia",id,,"[""Deliverables"",""Customer Inputs"",""Confidential Information"",""Intellectual Property Rights"",""Personal Information"",""Requirements""]","[""Supplier must provide Deliverables in accordance with the Contract and all Laws."",""Supplier must comply with all policies, codes of conduct, rules, standards, and procedures."",""Supplier must take care of Customer Inputs."",""Supplier must comply with all Laws."",""Each party will keep confidential all Confidential Information.""]",,,,,AUD,"The Customer will pay each Correctly Rendered Tax Invoice within 30 days of receipt, except where a government policy applies which prescribes a different payment period (such as the Queensland Government On-time Payment Policy, which requires payment of eligible invoices to small business suppliers within 20 days).",complete,complete,"{""parties"":[""Customer"",""Supplier""],""summary"":""This document outlines the General Contract Conditions for procuring general goods and services between a Customer and a Supplier. It covers contract formation, interpretation, obligations of the Supplier, payment terms, liability, intellectual property rights, confidentiality, privacy, termination, and other general provisions."",""currency"":""AUD"",""key_terms"":[""Deliverables"",""Customer Inputs"",""Confidential Information"",""Intellectual Property Rights"",""Personal Information"",""Requirements""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":null,""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":null,""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""Supplier must provide Deliverables in accordance with the Contract and all Laws."",""Supplier must comply with all policies, codes of conduct, rules, standards, and procedures."",""Supplier must take care of Customer Inputs."",""Supplier must comply with all Laws."",""Each party will keep confidential all Confidential Information.""],""jurisdiction"":""Queensland, Australia"",""time_periods"":{""notice_period"":""at least 30 days' written notice for termination for convenience"",""warranty_period"":null,""contract_duration"":""Contract Term starts on the start date in the Details and continues for the period set out in the Details, including any extension options which are exercised, unless earlier terminated in accordance with the Contract."",""limitation_period"":null},""contract_type"":""General Goods and Services Contract"",""document_type"":""Contract"",""governing_law"":null,""payment_terms"":""The Customer will pay each Correctly Rendered Tax Invoice within 30 days of receipt, except where a government policy applies which prescribes a different payment period (such as the Queensland Government On-time Payment Policy, which requires payment of eligible invoices to small business suppliers within 20 days)."",""contract_value"":null,""document_title"":""General Contract Conditions - Customer & Supplier"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-07-12 12:04:54.627287+00,2025-07-21 11:24:34.719486+00,,,,false,,,1,,0,,[],0,9ed45b2cf45678551fdce95861e70a7e0ffb2ecbac0ad309760ba6feac87dd54,"Here's a Markdown summary of the document:
+
+# General Contract Conditions Analysis
+
+### Document Type
+This is a **General Contract Conditions** document for the Queensland Government for general goods and services procurement. The document is dated **February 2024 (version 3.2)**. It appears to be a standard template intended for moderate-risk and/or value procurements.
+
+### Contract Overview
+*   **Parties Involved:** Customer (Queensland Government) and Supplier.
+*   **Purpose:** Establishes the standard terms and conditions governing contracts for the supply of general goods and services to the Queensland Government.
+*   **Key Terms:**  Defines how a contract is formed, interpretation of the contract, supplier obligations, payment terms, liability, intellectual property rights, confidentiality, termination conditions and other general conditions.
+
+### Financial Terms
+*   **Price:**  The price is inclusive of all charges, expenses, overheads, taxes, and duties (except GST) and to be provided in Australian dollars. There will be no additional cost for an obligation that requires the Supplier to perform.
+*   **Expenses:**  Travel and accommodation expenses will only be reimbursed if the customer requests that the Supplier travel away from the agreed service location, and where the travel expenses have been approved.
+*   **GST:** GST is to be paid in addition to amounts stated in the contract.
+*   **Invoicing and Payment:** Payment will be made within 30 days of receipt of a correctly rendered tax invoice, unless a government policy prescribes a different payment period. The Customer may set off any amounts payable to the Supplier against amounts payable by the Customer.
+
+### Key Obligations
+*   **Supplier Obligations:**  Includes meeting deadlines, providing deliverables per the contract, adhering to standards, protecting people and property, complying with relevant policies (including the Queensland Procurement Policy), fulfilling best practice principles, and complying with Customer directions.
+*   **Customer Inputs:** The supplier must take care of the customer inputs. If the supplier loses or damages customer inputs, the Supplier will promptly replace such Customer Inputs or pay the Customer the reasonable replacement cost.
+*   **Insurance:** Supplier must maintain specified insurances.
+*   **Compliance with Laws:**  Supplier must comply with all Laws, including those related to disability discrimination, modern slavery, and human rights.
+*   **Subcontracting:** Requires customer consent for subcontracting and due diligence regarding subcontractors.
+*   **Personnel:** Establishes requirements for personnel including background checks.
+*    **Customer Data:** The ownership of Customer Data will vest in the Customer on creation.
+*   **Confidentiality:** Establishes obligations for both parties to maintain confidentiality.
+
+### Important Dates
+*   **Effective Date:** The contract term starts on the start date specified in the Details.
+*   **Contract Term:** The contract continues for the period set out in the Details, including any exercised extension options.
+*   **Run-off Insurance:** The Supplier must maintain run-off insurance for a minimum period of 4 years after the Contract ends.
+*    **Notice of termination:**  Customer may terminate the contract by giving at least 30 days' written notice.
+
+### Key Insights
+*   **Standard Template:**  This document serves as a standardized framework for Queensland Government procurements. The ""Details"" referenced throughout the document are likely contained in a separate document specific to each individual procurement.
+*   **Compliance Focus:**  Significant emphasis is placed on the Supplier's compliance with various laws, policies, and ethical standards. This indicates a strong focus on responsible and ethical procurement practices.
+*   **Liability Limitations:** There are limitations on liability, including caps and exclusions for consequential loss, although these do not apply to personal injury, property damage, or intellectual property infringement.
+*   **Termination Rights:** The Customer retains broad termination rights, including termination for cause and for convenience, highlighting the Customer's flexibility.
+*   **Intellectual Property Ownership:** Generally new intellectual property is owned by the party specified in the details, if not, it will be owned by the customer.",standard,2025-07-12 12:04:54.768+00,,,,General Goods And Services Contract - Customer,,,false,
+fe1c2067-605a-4c5d-8e66-99b17fd88848,Statement 3 Months Ended Mar 31 2015.pdf,,legal/Statement 3 Months Ended Mar 31 2015-1752730601036.pdf,,Financial Statements,Consolidated Financial Statements,Financial Statements - Pt Lippo Karawaci Tbk,,,,"[""PT LIPPO KARAWACI Tbk"",""SUBSIDIARIES""]",,,Indonesia,Indonesia,id,,"[""Consolidated Financial Statements"",""Assets"",""Liabilities"",""Equity"",""Revenue"",""Profit"",""Cash Flow""]","[""Preparation of consolidated financial statements in accordance with Indonesian Financial Accounting Standards"",""Disclosure of significant accounting policies and financial information""]",,,,,IDR,,complete,complete,"{""parties"":[""PT LIPPO KARAWACI Tbk"",""SUBSIDIARIES""],""summary"":""This document is an interim consolidated financial statement for PT Lippo Karawaci Tbk and its subsidiaries. It covers the periods ending March 31, 2015 (unaudited) and December 31, 2014 (audited), including statements of financial position, profit or loss, changes in equity, and cash flows."",""currency"":""IDR"",""key_terms"":[""Consolidated Financial Statements"",""Assets"",""Liabilities"",""Equity"",""Revenue"",""Profit"",""Cash Flow""],""expiry_date"":null,""legal_dates"":{""review_date"":null,""completion_date"":null,""milestone_dates"":[],""warranty_expiry"":null,""payment_schedule"":[],""renewal_deadline"":null,""termination_date"":null,""commencement_date"":""1993-01-01"",""first_payment_due"":null,""compliance_deadline"":null,""document_signed_date"":""2015-04-28"",""notice_period_deadline"":null,""option_exercise_deadline"":null,""liability_limitation_date"":null},""obligations"":[""Preparation of consolidated financial statements in accordance with Indonesian Financial Accounting Standards"",""Disclosure of significant accounting policies and financial information""],""jurisdiction"":""Indonesia"",""time_periods"":{""notice_period"":null,""warranty_period"":null,""contract_duration"":null,""limitation_period"":null},""contract_type"":""Consolidated Financial Statements"",""document_type"":""Financial Statements"",""governing_law"":""Indonesia"",""payment_terms"":null,""contract_value"":null,""document_title"":""Financial Statements - PT Lippo Karawaci Tbk"",""effective_date"":null}",,404265fc-27f0-41a9-842e-dde3f76b540c,0d4f5e60-258a-46ea-92ce-c0ffc9263e1b,2025-07-17 05:36:44.315262+00,2025-07-21 11:21:13.078214+00,116797,,,false,,,1,,0,,[],0,315013b5d38fbe32259e890a20081efa690fa3f9f5deb0011d0140c5873a7257,"Okay, here's a Markdown summary of the financial statements of PT Lippo Karawaci Tbk and Subsidiaries:
+
+**Document Type:** Interim Consolidated Financial Statements
+
+**Analysis Framework:** Financial Document Analysis
+
+### Executive Summary
+*   This document presents the interim consolidated financial statements for PT Lippo Karawaci Tbk and its subsidiaries.
+*   The report covers the period ended March 31, 2015 (unaudited), with comparative figures as of December 31, 2014 (audited) and for the three-month periods ended March 31, 2015 and 2014 (unaudited).
+*   The financial statements were originally issued in Indonesian language.
+*  The document includes financial statements, notes, and director's statement.
+
+### Financial Performance
+*   **Revenues:** Net revenues for the three months ended March 31, 2015, were Rp 2,384,355,597,745 compared to Rp 1,947,356,377,544 for the same period in 2014. This indicates a significant increase in revenue.
+*   **Gross Profit:**  Gross profit for the period was Rp 1,137,537,481,283 in 2015 compared to Rp 937,880,071,420 in 2014.
+*   **Profit for the Period:** Profit for the period ended March 31, 2015, was Rp 560,498,180,525 compared to Rp 463,407,574,760 for the same period in 2014.
+*   **Earnings Per Share:**  Basic earnings per share attributable to ordinary shareholders of the parent was Rp 18.33 in 2015 compared to Rp 14.89 in 2014.
+
+### Financial Position
+*   **Total Assets:** Total assets as of March 31, 2015, were Rp 39,640,578,776,428, compared to Rp 37,761,220,693,695 as of December 31, 2014.
+*   **Total Liabilities:** Total liabilities as of March 31, 2015, were Rp 20,126,809,328,998, compared to Rp 20,114,771,650,490 as of December 31, 2014.
+*   **Total Equity:** Total equity as of March 31, 2015, was Rp 19,513,769,447,430 compared to Rp 17,646,449,043,205 as of December 31, 2014.
+*   **Cash and Cash Equivalents:** Cash and cash equivalents decreased from Rp 3,529,169,475,504 (Dec 2014) to Rp 3,445,222,900,994 (Mar 2015).
+*   **Inventories:** Increased from Rp 16,553,035,543,518 (Dec 2014) to Rp 17,201,328,827,362 (Mar 2015).
+
+### Key Insights
+*   Lippo Karawaci experienced improved revenue and profit during the first three months of 2015 compared to the same period last year.
+*   The company's total assets and equity have increased, indicating overall growth and financial strength.
+*   The notes to the financial statements provide significant detail on the company's accounting policies, subsidiaries, and various financial instruments.
+*   The company is involved in several legal proceedings related to land and other disputes, which could have potential financial implications.
+*   The Directors' Statement affirms the responsibility for the financial statements' accuracy and compliance with Indonesian accounting standards.",standard,2025-07-17 05:36:44.42+00,,,,Legal Document - Equity Attributable to Owner of the Parent Company.pdf,,,false,

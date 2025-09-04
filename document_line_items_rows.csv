@@ -1,0 +1,30 @@
+id,document_id,description,quantity,unit_price,line_total_amount,created_at,sort_order,item_type,tax_type,account_code_suggestion,is_tax_line,is_discount_line,is_shipping_line
+0d912714-a204-49d7-8153-32bed8d3dc95,76f02200-504a-47ae-854c-c056b125fb42,Tab. multivitäçin dla ko loo,,,,2025-08-08 10:12:46.901284+00,5,standard,NONE,,false,false,false
+11bf269d-aede-4751-aa7f-a8ce4c21e250,6eeceb60-552e-43f8-94f6-583ca8fc751c,3/4 impor salem,1,30000,30000,2025-08-11 03:44:33.529472+00,2,discount,NONE,,false,true,false
+19929126-0dc2-4f34-b6b6-f6601e49c7a8,d06155b7-12ce-4dcd-a764-6d774e92410b,Welcome Bread,2,0,0,2025-08-15 07:24:18.450313+00,3,standard,NONE,,false,false,false
+1b67d5c7-fe0e-4d94-b106-10010cdc9024,484db33a-47c3-459c-9236-29d304711245,CHICKEN PARMIGIANA PASTA,1,155000,155000,2025-08-01 01:27:18.925807+00,2,standard,NONE,,false,false,false
+22859ca7-1563-4efb-be52-004cf5c646ca,c81dbcc1-71fb-4ed5-a77a-a11b819fd0b9,Tas Ransel Pinhome HOME SERVICE (Home Cleaning/Massage/Glam/Fix/Auto) - Tas Medium,14,150000,2100000,2025-08-08 09:34:35.233841+00,1,standard,NONE,,false,false,false
+3658564e-3cfb-4f63-9951-55ed85f33990,484db33a-47c3-459c-9236-29d304711245,(L) SWEET CARAMEL LATTE,1,65000,65000,2025-08-01 01:27:18.925807+00,1,standard,NONE,,false,false,false
+38de5a95-e251-4a65-b985-38dcbe167cf6,d06155b7-12ce-4dcd-a764-6d774e92410b,Jasmine Green Tea,1,35000,35000,2025-08-15 07:24:18.450313+00,2,standard,NONE,,false,false,false
+4210c29f-b95b-4383-925b-b07e50d22c5e,d06155b7-12ce-4dcd-a764-6d774e92410b,Classic Tiramisu,1,105000,105000,2025-08-15 07:24:18.450313+00,6,standard,NONE,,false,false,false
+4641ca87-7ebd-4265-8a00-9ba10acc61b8,d06155b7-12ce-4dcd-a764-6d774e92410b,Cappuccino,1,45000,45000,2025-08-15 07:24:18.450313+00,1,standard,NONE,,false,false,false
+46c2cca2-7b9a-4df3-bc97-5010517ea0c9,6eeceb60-552e-43f8-94f6-583ca8fc751c,HP IMPOR XXXL,1,40000,40000,2025-08-11 03:44:33.529472+00,3,standard,NONE,,false,false,false
+57c65d0b-a96e-4ba7-afda-b5ec8938ea7b,d06155b7-12ce-4dcd-a764-6d774e92410b,Truffle Fries,1,85000,85000,2025-08-15 07:24:18.450313+00,4,standard,NONE,,false,false,false
+5cef90bd-1546-4970-8e5e-48631d9c25d2,01c043b3-fc30-470c-beb0-ec556de13a15,Mozarella Stick,1,75000,75000,2025-08-06 06:50:25.935781+00,5,standard,NONE,,false,false,false
+61dd3ce6-ade6-4185-9715-cd877a3a964d,c5e05fbc-2dbb-456f-ada0-2e69edb907d0,(L) SWEET CARAMEL LATTE,1,65000,65000,2025-08-08 09:00:22.120449+00,1,standard,NONE,,false,false,false
+6740ed13-e351-4734-a939-c7de8a6d9b4b,76f02200-504a-47ae-854c-c056b125fb42,slact,,0.4,,2025-08-08 10:12:46.901284+00,4,standard,NONE,,false,false,false
+71ee4d7b-d5f8-46df-9f76-b6177b79e267,01c043b3-fc30-470c-beb0-ec556de13a15,Classic Tiramisu,1,105000,105000,2025-08-06 06:50:25.935781+00,6,standard,NONE,,false,false,false
+758eea94-9b11-4e19-9ded-4b6e37e99a65,01c043b3-fc30-470c-beb0-ec556de13a15,English Brakfast Tea,1,35000,35000,2025-08-06 06:50:25.935781+00,7,standard,NONE,,false,false,false
+76a415c9-1d5b-486d-b920-1637a42c2a2c,01c043b3-fc30-470c-beb0-ec556de13a15,Jasmine Green Tea,1,35000,35000,2025-08-06 06:50:25.935781+00,2,standard,NONE,,false,false,false
+7fe11a50-e4c9-4b95-9e70-c4248390b89e,76f02200-504a-47ae-854c-c056b125fb42,Phenobarbit,,0.025,,2025-08-08 10:12:46.901284+00,2,standard,NONE,,false,false,false
+816b272e-f697-4a36-a1e1-d807fd006ef6,76f02200-504a-47ae-854c-c056b125fb42,Hyder papaverin,,0.03,,2025-08-08 10:12:46.901284+00,1,standard,NONE,,false,false,false
+8695a332-c8a9-4b0d-9e6c-085a3cb5a3e7,6eeceb60-552e-43f8-94f6-583ca8fc751c,"3/4 Jumbo bordIR maqun, bata",2,32000,64000,2025-08-11 03:44:33.529472+00,4,standard,NONE,,false,false,false
+90918335-3229-44fe-9bda-3e0a3255e78c,c5e05fbc-2dbb-456f-ada0-2e69edb907d0,CHICKEN PARMIGIANA PASTA,1,155000,155000,2025-08-08 09:00:22.120449+00,2,standard,NONE,,false,false,false
+91c42fb6-69f7-473a-9f0f-f8668b137272,76f02200-504a-47ae-854c-c056b125fb42,Euphyllin,,0.1,,2025-08-08 10:12:46.901284+00,3,standard,NONE,,false,false,false
+af142d5c-7be3-40d2-bb6b-d26b05417d7d,d06155b7-12ce-4dcd-a764-6d774e92410b,English Brakfast Tea,1,35000,35000,2025-08-15 07:24:18.450313+00,7,standard,NONE,,false,false,false
+c4a282cc-ddf3-45c1-be75-21d34b568c38,6eeceb60-552e-43f8-94f6-583ca8fc751c,"HP Impor abu, lilac Pink",3,100000,100000,2025-08-11 03:44:33.529472+00,1,standard,NONE,,false,false,false
+dab83f8f-2256-47d7-a40c-166f11120d6e,01c043b3-fc30-470c-beb0-ec556de13a15,Cappuccino,1,45000,45000,2025-08-06 06:50:25.935781+00,1,standard,NONE,,false,false,false
+e7f536c5-a4c6-4cdf-a979-df8f29157a24,5920546f-3fea-4665-b712-ed1ff22c5601,Jabra Evolve 20 SE UC Stereo - Wideband Headset,3,800000,2400000,2025-08-08 09:31:53.023084+00,1,standard,NONE,,false,false,false
+f2eb9319-983c-49ba-a01e-f30c80944eb2,d06155b7-12ce-4dcd-a764-6d774e92410b,Mozarella Stick,1,75000,75000,2025-08-15 07:24:18.450313+00,5,standard,NONE,,false,false,false
+f5237c1e-42bb-4a91-a7b7-c6ce8589eb8a,01c043b3-fc30-470c-beb0-ec556de13a15,Truffle Fries,1,85000,85000,2025-08-06 06:50:25.935781+00,4,standard,NONE,,false,false,false
+f8f00413-e09e-4852-bc3a-b147a0b0c614,01c043b3-fc30-470c-beb0-ec556de13a15,Welcome Bread,2,0,0,2025-08-06 06:50:25.935781+00,3,standard,NONE,,false,false,false

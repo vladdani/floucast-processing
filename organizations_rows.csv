@@ -1,0 +1,7 @@
+id,name,type,description,settings,is_personal,created_at,updated_at,industry,company_size,primary_vertical
+0cf1524b-353c-4843-bafc-09b6f1ba3608,PT Floucast,personal,Personal organization,{},true,2025-08-07 06:41:27.212673+00,2025-08-07 07:49:25.027+00,,,
+16719e1a-82be-4d0d-b200-1c350ac3133a,Vi.vladdani+test's Organization,personal,Personal organization,{},true,2025-08-07 06:41:27.216584+00,2025-08-07 06:41:27.216584+00,,,
+2a34080a-1285-4357-af03-7c34e7748292,vlad's Organization,personal,Personal organization,{},true,2025-07-31 03:08:58.312629+00,2025-07-31 03:08:58.312629+00,legal,small,legal
+404265fc-27f0-41a9-842e-dde3f76b540c,PT Satu Sampai Seratus,personal,Personal organization for v@vladdanilov.com,{},true,2025-04-10 06:19:39.218395+00,2025-06-21 08:34:31.043+00,,,
+575181ce-ede3-4f13-b29d-2e8b34e8d3d4,vi.vladdani's Organization,personal,Personal organization for vi.vladdani@gmail.com,{},true,2025-04-10 02:33:15.170199+00,2025-06-21 05:37:20.889214+00,,,
+586a4858-1388-4ff9-81f4-c9069b4594bb,Vi.vladdani+test2's Organization,personal,Personal organization,{},true,2025-08-07 09:23:54.977319+00,2025-08-07 09:23:54.977319+00,,,
