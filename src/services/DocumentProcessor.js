@@ -1710,7 +1710,7 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
 
     // Save embeddings if present
     if (embeddings.length > 0) {
-      await this.saveDocumentChunks(documentId, embeddings);
+      await this.saveDocumentChunks(documentId, embeddings, vertical);
     }
 
     this.logger.info(`[${documentId}] Successfully updated document with all extracted data`);
@@ -1814,32 +1814,37 @@ Return the result ONLY as a valid JSON object with these exact keys. Use null fo
   }
 
   // Save document chunks for embedding search
-  async saveDocumentChunks(documentId, embeddings) {
+  async saveDocumentChunks(documentId, embeddings, vertical = 'accounting') {
     try {
+      // Use appropriate table and field based on vertical
+      const tableName = vertical === 'legal' ? 'legal_document_chunks' : 'document_chunks';
+      const documentIdField = vertical === 'legal' ? 'legal_document_id' : 'document_id';
+      
       // Delete existing chunks
       await this.supabase
-        .from('document_chunks')
+        .from(tableName)
         .delete()
-        .eq('document_id', documentId);
+        .eq(documentIdField, documentId);
       
       const chunksToInsert = embeddings.map((embedding, index) => ({
-        document_id: documentId,
+        [documentIdField]: documentId,
         content: embedding.text,
         embedding: embedding.embedding,
         chunk_index: index
       }));
       
       const { error } = await this.supabase
-        .from('document_chunks')
+        .from(tableName)
         .insert(chunksToInsert);
         
       if (error) {
-        this.logger.error(`Error saving document chunks for ${documentId}:`, error);
+        this.logger.error(`Error saving ${vertical} document chunks for ${documentId}:`, error);
+        this.logger.error(`Table: ${tableName}, Field: ${documentIdField}`, { error });
       } else {
-        this.logger.info(`Successfully saved ${chunksToInsert.length} document chunks for ${documentId}`);
+        this.logger.info(`Successfully saved ${chunksToInsert.length} ${vertical} document chunks for ${documentId} to ${tableName}`);
       }
     } catch (error) {
-      this.logger.error(`Error in saveDocumentChunks for ${documentId}:`, error);
+      this.logger.error(`Error in saveDocumentChunks for ${documentId} (${vertical}):`, error);
     }
   }
 
