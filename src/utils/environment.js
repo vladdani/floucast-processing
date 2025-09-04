@@ -19,7 +19,23 @@ const optionalEnvVars = {
   SQS_VISIBILITY_TIMEOUT: '900', // 15 minutes
   SQS_WAIT_TIME_SECONDS: '20', // Long polling
   NODE_ENV: 'production',
-  LOG_LEVEL: 'info'
+  LOG_LEVEL: 'info',
+  
+  // Document Processing Configuration
+  TEXT_CHUNK_SIZE: '700',
+  TEXT_CHUNK_OVERLAP: '100',
+  SMALL_DOCUMENT_THRESHOLD: '524288', // 512KB in bytes
+  MEDIUM_DOCUMENT_THRESHOLD: '2097152', // 2MB in bytes
+  
+  // Image Processing Configuration  
+  IMAGE_RESIZE_WIDTH: '1920',
+  IMAGE_RESIZE_HEIGHT: '1920',
+  
+  // Request Configuration
+  REQUEST_BODY_LIMIT: '100mb',
+  
+  // File Processing Configuration
+  MAX_EMBEDDING_BATCH_SIZE: '10'
 };
 
 function validateEnvironment() {
@@ -89,7 +105,19 @@ function getConfig() {
     processing: {
       concurrency: parseInt(process.env.PROCESSING_CONCURRENCY || '3'),
       maxTimeMs: parseInt(process.env.MAX_PROCESSING_TIME_MS || '900000'),
-      tempDir: process.env.TEMP_DIR || '/tmp'
+      tempDir: process.env.TEMP_DIR || '/tmp',
+      textChunkSize: parseInt(process.env.TEXT_CHUNK_SIZE || '700'),
+      textChunkOverlap: parseInt(process.env.TEXT_CHUNK_OVERLAP || '100'),
+      smallDocumentThreshold: parseInt(process.env.SMALL_DOCUMENT_THRESHOLD || '524288'),
+      mediumDocumentThreshold: parseInt(process.env.MEDIUM_DOCUMENT_THRESHOLD || '2097152'),
+      maxEmbeddingBatchSize: parseInt(process.env.MAX_EMBEDDING_BATCH_SIZE || '10')
+    },
+    server: {
+      requestBodyLimit: process.env.REQUEST_BODY_LIMIT || '100mb'
+    },
+    image: {
+      resizeWidth: parseInt(process.env.IMAGE_RESIZE_WIDTH || '1920'),
+      resizeHeight: parseInt(process.env.IMAGE_RESIZE_HEIGHT || '1920')
     },
     logging: {
       level: process.env.LOG_LEVEL || 'info',

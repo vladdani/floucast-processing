@@ -111,7 +111,7 @@ function normalizeDocumentType(type) {
 }
 
 // Efficient streaming text chunking function with improved memory usage
-function* chunkTextStream(text, chunkSize = 700, overlap = 100) {
+function* chunkTextStream(text, chunkSize, overlap) {
   if (!text || text.length <= chunkSize) {
     if (text) yield text;
     return;
@@ -126,9 +126,12 @@ function* chunkTextStream(text, chunkSize = 700, overlap = 100) {
   }
 }
 
-// Wrapper function to maintain backward compatibility
+// Wrapper function to maintain backward compatibility - now requires options
 function chunkText(text, options = {}) {
-  const { chunkSize = 700, chunkOverlap = 100 } = options;
+  const { chunkSize, chunkOverlap } = options;
+  if (!chunkSize || !chunkOverlap) {
+    throw new Error('chunkText requires chunkSize and chunkOverlap in options');
+  }
   return Array.from(chunkTextStream(text, chunkSize, chunkOverlap));
 }
 
@@ -142,7 +145,11 @@ async function withTimeout(promise, timeoutMs, errorMessage = 'Operation timed o
 }
 
 // Enhanced retry wrapper for AI calls with timeout support
-async function withRetry(fn, retries = 3, delay = 1000, logger = console) {
+async function withRetry(fn, retries = 3, delay = 1000, logger) {
+  // Ensure logger is provided - don't default to console
+  if (!logger) {
+    throw new Error('Logger is required for withRetry function');
+  }
   let lastError;
   for (let i = 0; i < retries; i++) {
     try {
@@ -368,9 +375,9 @@ class DocumentProcessor {
     const fileSizeKB = Math.round(fileBuffer.byteLength / 1024);
     const fileSizeMB = fileSizeKB / 1024;
     
-    // Performance optimization thresholds (from accountant-app)
-    const SMALL_DOC_THRESHOLD = 500 * 1024; // 500KB
-    const MEDIUM_DOC_THRESHOLD = 2 * 1024 * 1024; // 2MB
+    // Performance optimization thresholds
+    const SMALL_DOC_THRESHOLD = this.config.processing.smallDocumentThreshold;
+    const MEDIUM_DOC_THRESHOLD = this.config.processing.mediumDocumentThreshold;
     const isSmallDocument = fileBuffer.byteLength < SMALL_DOC_THRESHOLD;
     const isMediumDocument = fileBuffer.byteLength < MEDIUM_DOC_THRESHOLD;
     
@@ -765,13 +772,13 @@ ${xlsxText ? `Additional spreadsheet data: ${xlsxText.substring(0, 1000)}` : ''}
         // Then convert to WebP
         webpBuffer = await sharp(jpegBuffer)
           .webp({ quality: 85, effort: 4, lossless: false })
-          .resize(1920, 1920, { fit: 'inside', withoutEnlargement: true })
+          .resize(this.config.image.resizeWidth, this.config.image.resizeHeight, { fit: 'inside', withoutEnlargement: true })
           .toBuffer();
       } else {
         // Direct conversion to WebP
         webpBuffer = await sharp(fileBuffer)
           .webp({ quality: 85, effort: 4, lossless: false })
-          .resize(1920, 1920, { fit: 'inside', withoutEnlargement: true })
+          .resize(this.config.image.resizeWidth, this.config.image.resizeHeight, { fit: 'inside', withoutEnlargement: true })
           .toBuffer();
       }
 
@@ -847,7 +854,10 @@ ${xlsxText ? `Additional spreadsheet data: ${xlsxText.substring(0, 1000)}` : ''}
     
     try {
       // Chunk text for embedding
-      const chunks = chunkText(text, { chunkSize: 700, chunkOverlap: 100 });
+      const chunks = chunkText(text, { 
+        chunkSize: this.config.processing.textChunkSize, 
+        chunkOverlap: this.config.processing.textChunkOverlap 
+      });
       const embeddings = [];
       
       for (let i = 0; i < chunks.length; i++) {
@@ -1274,11 +1284,14 @@ Based on this spreadsheet data, extract the following fields:`;
         // Chunked embeddings for larger documents or text exceeding API limit
         const reason = !isSmallDocument ? 'large document' : 'text exceeds API limit';
         this.logger.info(`[${documentId}] Generating chunked embeddings (${reason}, ${(textSizeBytes/1024).toFixed(1)}KB)`);
-        const chunks = chunkText(fullDocumentText, { chunkSize: 700, chunkOverlap: 100 });
+        const chunks = chunkText(fullDocumentText, { 
+          chunkSize: this.config.processing.textChunkSize, 
+          chunkOverlap: this.config.processing.textChunkOverlap 
+        });
         const embeddings = [];
         
-        // Batch process embeddings (rate limiting like accountant-app)
-        const MAX_CONCURRENT = 10;
+        // Batch process embeddings
+        const MAX_CONCURRENT = this.config.processing.maxEmbeddingBatchSize;
         for (let i = 0; i < chunks.length; i += MAX_CONCURRENT) {
           const batchChunks = chunks.slice(i, Math.min(i + MAX_CONCURRENT, chunks.length));
           

@@ -11,16 +11,16 @@ const { createLogger } = require('./utils/logger');
 const app = express();
 const port = process.env.PORT || 8080;
 
+// Initialize logger first for consistent logging
+const logger = createLogger();
+
 // Validate environment variables on startup
 try {
   validateEnvironment();
 } catch (error) {
-  console.error('Environment validation failed:', error.message);
+  logger.error('Environment validation failed:', error.message);
   process.exit(1);
 }
-
-// Initialize logger
-const logger = createLogger();
 
 // Initialize services
 let documentProcessor;
@@ -50,8 +50,9 @@ async function initializeServices() {
 app.use(helmet());
 app.use(compression());
 app.use(cors());
-app.use(express.json({ limit: '100mb' }));
-app.use(express.urlencoded({ extended: true, limit: '100mb' }));
+const config = getConfig();
+app.use(express.json({ limit: config.server.requestBodyLimit }));
+app.use(express.urlencoded({ extended: true, limit: config.server.requestBodyLimit }));
 
 // Request logging
 app.use((req, res, next) => {
@@ -256,7 +257,7 @@ async function start() {
 // Start if running directly
 if (require.main === module) {
   start().catch(error => {
-    console.error('Startup failed:', error);
+    logger.error('Startup failed:', error);
     process.exit(1);
   });
 }
