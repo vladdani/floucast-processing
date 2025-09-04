@@ -1,5 +1,6 @@
 const { SQSClient, ReceiveMessageCommand, DeleteMessageCommand, GetQueueAttributesCommand } = require('@aws-sdk/client-sqs');
 const { v4: uuidv4 } = require('uuid');
+const { createClient } = require('@supabase/supabase-js');
 const { getConfig } = require('../utils/environment');
 
 class QueueManager {
@@ -8,9 +9,28 @@ class QueueManager {
     this.logger = logger;
     this.config = getConfig();
     this.sqs = null;
+    this.supabase = null;
     this.isRunning = false;
     this.workers = [];
     this.processingJobs = new Set();
+    this.queueUrl = this.config.aws.sqsQueueUrl;
+    
+    // Initialize Supabase client
+    if (this.config.supabase.url && this.config.supabase.serviceRoleKey) {
+      this.supabase = createClient(
+        this.config.supabase.url,
+        this.config.supabase.serviceRoleKey,
+        {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false
+          }
+        }
+      );
+      this.logger.info('Supabase client initialized for organization validation');
+    } else {
+      this.logger.warn('No Supabase configuration, organization validation disabled');
+    }
     
     // Initialize SQS if queue URL is provided
     if (this.config.aws.sqsQueueUrl) {
@@ -114,6 +134,46 @@ class QueueManager {
           return; // Skip processing this message
         }
         
+        // Validate organization exists in Supabase before processing
+        if (this.supabase) {
+          const { data: organization, error } = await this.supabase
+            .from('organizations')
+            .select('id, name')
+            .eq('id', organizationId)
+            .single();
+          
+          if (error || !organization) {
+            this.logger.error(`[Worker-${worker.id}] Organization validation failed`, {
+              organizationId,
+              s3Key,
+              error: error?.message || 'Organization not found in database',
+              documentId
+            });
+            
+            // Log detailed error for troubleshooting
+            this.logger.error(`[Worker-${worker.id}] Skipping document processing - Organization ${organizationId} does not exist in Supabase`, {
+              suggestion: 'Ensure organization is created in Supabase before uploading documents',
+              s3Key,
+              bucketName
+            });
+            
+            // Delete message from queue to prevent reprocessing
+            const deleteCommand = new DeleteMessageCommand({
+              QueueUrl: this.queueUrl,
+              ReceiptHandle: message.ReceiptHandle
+            });
+            await this.sqs.send(deleteCommand);
+            this.logger.info(`[Worker-${worker.id}] Message deleted from queue due to invalid organization`);
+            
+            return; // Skip processing this message
+          }
+          
+          this.logger.info(`[Worker-${worker.id}] Organization validated successfully`, {
+            organizationId,
+            organizationName: organization.name
+          });
+        }
+        
         // Extract file information from S3 key and metadata
         const originalFilename = this.extractFilename(s3Key);
         const documentType = this.detectDocumentType(originalFilename);
@@ -176,6 +236,44 @@ class QueueManager {
           await this.sqs.send(deleteCommand);
           
           return; // Skip processing this message
+        }
+        
+        // Validate organization exists in Supabase for legacy format
+        if (this.supabase) {
+          const { data: organization, error } = await this.supabase
+            .from('organizations')
+            .select('id, name')
+            .eq('id', organizationId)
+            .single();
+          
+          if (error || !organization) {
+            this.logger.error(`[Worker-${worker.id}] Organization validation failed for legacy format`, {
+              organizationId,
+              documentId,
+              error: error?.message || 'Organization not found in database'
+            });
+            
+            this.logger.error(`[Worker-${worker.id}] Skipping document processing - Organization ${organizationId} does not exist in Supabase`, {
+              suggestion: 'Ensure organization is created in Supabase before processing documents',
+              documentId,
+              vertical
+            });
+            
+            // Delete message from queue to prevent reprocessing
+            const deleteCommand = new DeleteMessageCommand({
+              QueueUrl: this.queueUrl,
+              ReceiptHandle: message.ReceiptHandle
+            });
+            await this.sqs.send(deleteCommand);
+            this.logger.info(`[Worker-${worker.id}] Legacy message deleted from queue due to invalid organization`);
+            
+            return; // Skip processing this message
+          }
+          
+          this.logger.info(`[Worker-${worker.id}] Organization validated successfully for legacy format`, {
+            organizationId,
+            organizationName: organization.name
+          });
         }
         
         this.logger.info(`[Worker-${worker.id}] Processing legacy job format`, {
